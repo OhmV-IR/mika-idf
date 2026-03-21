@@ -1,4 +1,6 @@
 #include "Touch_CST816.h"
+#include <driver/i2c.h>
+#define I2C_MASTER_PORT I2C_NUM_0
 
 struct CST816_Touch touch_data = {0};
 uint8_t Touch_interrupts=0;
@@ -8,26 +10,48 @@ uint8_t Touch_interrupts=0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool I2C_Read_Touch(uint16_t Driver_addr, uint8_t Reg_addr, uint8_t *Reg_data, uint32_t Length)
 {
-  Wire.beginTransmission(Driver_addr);
-  Wire.write(Reg_addr); 
-  if ( Wire.endTransmission(true)){
+  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, (Driver_addr << 1) | I2C_MASTER_WRITE, true);
+  i2c_master_write_byte(cmd, Reg_addr, true);
+  i2c_master_stop(cmd);
+  esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(100));
+  i2c_cmd_link_delete(cmd);
+  if (ret != ESP_OK){
     printf("The I2C transmission fails. - I2C Read\r\n");
     return true;
   }
-  Wire.requestFrom(Driver_addr, Length);
-  for (int i = 0; i < Length; i++) {
-    *Reg_data++ = Wire.read();
+  cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, (Driver_addr << 1) | I2C_MASTER_READ, true);
+  for(int i = 0; i < Length; i++){
+	  if(i < Length - 1){
+		  i2c_master_read_byte(cmd, Reg_data++, I2C_MASTER_ACK);
+	  }
+          else {
+		  i2c_master_read_byte(cmd, Reg_data++, I2C_MASTER_LAST_NACK);
+	  }
+  }
+  i2c_master_stop(cmd);
+  ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(100));
+  i2c_cmd_link_delete(cmd);
+  if(ret != ESP_OK){
+	  printf("Failed to read touch sensor i2c data\r\n");
+	  return true;
   }
   return true;
 }
 bool I2C_Write_Touch(uint8_t Driver_addr, uint8_t Reg_addr, const uint8_t *Reg_data, uint32_t Length)
 {
-  Wire.beginTransmission(Driver_addr);
-  Wire.write(Reg_addr);       
-  for (int i = 0; i < Length; i++) {
-    Wire.write(*Reg_data++);
-  }
-  if ( Wire.endTransmission(true))
+  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, (Driver_addr << 1) | I2C_MASTER_WRITE, true);
+  i2c_master_write_byte(cmd, Reg_addr, true);
+  i2c_master_write(cmd, Reg_data, Length, true);
+  i2c_master_stop(cmd);
+  esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(100));
+  i2c_cmd_link_delete(cmd);
+  if ( ret != ESP_OK)
   {
     printf("The I2C transmission fails. - I2C Write\r\n");
     return false;
@@ -37,7 +61,7 @@ bool I2C_Write_Touch(uint8_t Driver_addr, uint8_t Reg_addr, const uint8_t *Reg_d
 /*!
     @brief  handle interrupts
 */
-void ARDUINO_ISR_ATTR Touch_CST816_ISR(void) {
+void IRAM_ATTR Touch_CST816_ISR(void* unused) {
   Touch_interrupts = true;
 }
 
@@ -45,10 +69,17 @@ uint8_t Touch_Init(void) {
   CST816_Touch_Reset();
   uint16_t Verification = CST816_Read_cfg();
   CST816_AutoSleep(true);
-   
-  pinMode(CST816_INT_PIN, INPUT_PULLUP);
-  attachInterrupt(CST816_INT_PIN, Touch_CST816_ISR, FALLING); 
-
+  
+  gpio_config_t ioconf = {
+	  .pin_bit_mask = 1ULL < CST816_INT_PIN,
+	  .mode = GPIO_MODE_INPUT,
+	  .pull_up_en = GPIO_PULLUP_ENABLE,
+	  .pull_down_en = GPIO_PULLDOWN_DISABLE,
+	  .intr_type = GPIO_INTR_NEGEDGE
+  };
+  gpio_config(&ioconf);
+  gpio_install_isr_service(0);
+  gpio_isr_handler_add((gpio_num_t)CST816_INT_PIN, Touch_CST816_ISR, NULL);
   return true;
 }
 /* Reset controller */
@@ -90,7 +121,7 @@ uint8_t Touch_Read_Data(void) {
   if (buf[0] != 0x00) 
     touch_data.gesture = (GESTURE)buf[0];
   if (buf[1] != 0x00) {        
-    noInterrupts(); 
+    portDISABLE_INTERRUPTS();
     /* Number of touched points */
     touch_data.points = (uint8_t)buf[1];
     if(touch_data.points > CST816_LCD_TOUCH_MAX_POINTS)
@@ -99,7 +130,7 @@ uint8_t Touch_Read_Data(void) {
     touch_data.x = ((buf[2] & 0x0F) << 8) + buf[3];               
     touch_data.y = ((buf[4] & 0x0F) << 8) + buf[5];
       
-    interrupts(); 
+    portENABLE_INTERRUPTS();
     // printf(" points=%d \r\n",touch_data.points);
   }
   return true;
@@ -123,7 +154,7 @@ void Touch_Loop(void){
 /*!
     @brief  get the gesture event name
 */
-String Touch_GestureName(void) {
+std::string Touch_GestureName(void) {
   switch (touch_data.gesture) {
     case NONE:
       return "NONE";

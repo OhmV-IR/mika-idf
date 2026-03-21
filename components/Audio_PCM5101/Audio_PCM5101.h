@@ -1,8 +1,6 @@
 #pragma once
-#include "Arduino.h"
 #include "Audio.h"
 #include "SD_Card.h"
-#include "MIC_MSM.h"
 #include <esp_err.h>
 
 // Digital I/O used

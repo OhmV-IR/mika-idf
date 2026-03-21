@@ -1,4 +1,6 @@
 #include "RTC_PCF85063.h"
+#include <cstdio>
+#include <esp_err.h>
 
 datetime_t datetime= {0};
 
@@ -58,9 +60,9 @@ Info:
 ******************************************************************************/
 void PCF85063_Set_Time(datetime_t time)
 {
-	uint8_t buf[3] = {decToBcd(time.second),
-					  decToBcd(time.minute),
-					  decToBcd(time.hour)};
+	uint8_t buf[3] = {(uint8_t)decToBcd(time.second),
+					 (uint8_t)decToBcd(time.minute),
+					  (uint8_t)decToBcd(time.hour)};
 	esp_err_t ret = I2C_Write(PCF85063_ADDRESS, RTC_SECOND_ADDR, buf, sizeof(buf));
 	if(ret != ESP_OK)
 		printf("PCF85063 : Time setting failure\r\n");
@@ -163,9 +165,9 @@ void PCF85063_Set_Alarm(datetime_t time)
 {
 
 	uint8_t buf[5] ={
-		decToBcd(time.second)&(~RTC_ALARM),
-		decToBcd(time.minute)&(~RTC_ALARM),
-		decToBcd(time.hour)&(~RTC_ALARM),
+		(uint8_t)(decToBcd(time.second)&(~RTC_ALARM)),
+		(uint8_t)(decToBcd(time.minute)&(~RTC_ALARM)),
+		(uint8_t)(decToBcd(time.hour)&(~RTC_ALARM)),
 		//decToBcd(time.day)&(~RTC_ALARM),
 		//decToBcd(time.dotw)&(~RTC_ALARM)
 		RTC_ALARM, 	//disalbe day

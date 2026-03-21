@@ -9,6 +9,8 @@
 
 #include "esp_lcd_panel_io_interface.h"
 #include "esp_lcd_panel_ops.h"
+#include <driver/gpio.h>
+#include <driver/ledc.h>
 
 #define LCD_OPCODE_WRITE_CMD        (0x02ULL)
 #define LCD_OPCODE_READ_CMD         (0x0BULL)
@@ -344,7 +346,14 @@ int QSPI_Init(void){
 
 void ST77916_Init() {
   ST7701_Reset();
-  pinMode(ESP_PANEL_LCD_SPI_IO_TE, OUTPUT);
+  gpio_config_t ioconf = {
+	  .pin_bit_mask = 1ULL << ESP_PANEL_LCD_SPI_IO_TE,
+	  .mode = GPIO_MODE_OUTPUT,
+	  .pull_up_en = GPIO_PULLUP_DISABLE,
+	  .pull_down_en = GPIO_PULLDOWN_DISABLE,
+	  .intr_type = GPIO_INTR_DISABLE
+  };
+  gpio_config(&ioconf);
   if(!QSPI_Init()){
     printf("ST77916 Failed to be initialized\r\n");
   }
@@ -375,19 +384,34 @@ uint8_t LCD_Backlight = 50;
 // backlight
 void Backlight_Init()
 {
-  ledcAttach(LCD_Backlight_PIN, Frequency, Resolution);   
-  ledcWrite(LCD_Backlight_PIN, Dutyfactor);  
-  Set_Backlight(LCD_Backlight);      //0~100                 
+  ledc_timer_config_t ledc_timer = {};
+  ledc_timer.speed_mode = LEDC_LOW_SPEED_MODE;
+  ledc_timer.timer_num = LEDC_TIMER_0;
+  ledc_timer.duty_resolution = LEDC_TIMER_10_BIT;
+  ledc_timer.freq_hz = 5000;
+  ledc_timer.clk_cfg = LEDC_AUTO_CLK;
+  ledc_timer_config(&ledc_timer);
+  ledc_channel_config_t channel = {};
+  channel.speed_mode = LEDC_LOW_SPEED_MODE;
+  channel.channel = LEDC_CHANNEL_0;
+  channel.intr_type = LEDC_INTR_DISABLE;
+  channel.timer_sel = LEDC_TIMER_0;
+  channel.gpio_num = LCD_Backlight_PIN;
+  channel.duty = 0;
+  channel.hpoint = 0;
+  ledc_channel_config(&channel);
+  uint32_t duty = (LCD_Backlight * 1023) / 100;
+ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty);
+ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);       
 }
 
 void Set_Backlight(uint8_t Light)                     
 {
-  if(Light > Backlight_MAX || Light < 0)
+  if(Light > Backlight_MAX)
     printf("Set Backlight parameters in the range of 0 to 100 \r\n");
   else{
-    uint32_t Backlight = Light*10;
-    if(Backlight == 1000)
-      Backlight = 1024;
-    ledcWrite(LCD_Backlight_PIN, Backlight);
+    uint32_t duty = (Light * 1023) / 100;
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
   }
 }

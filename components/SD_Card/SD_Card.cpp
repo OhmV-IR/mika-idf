@@ -1,4 +1,12 @@
 #include "SD_Card.h"
+#include <esp_vfs_fat.h>
+#include <sdmmc_cmd.h>
+#include <driver/sdmmc_host.h>
+#include <driver/gpio.h>
+#include <dirent.h>
+#include <string.h>
+#include <stdio.h>
+#include <sys/stat.h>
 
 bool SDCard_Flag = false;
 bool SDCard_Finish = false;
@@ -16,16 +24,28 @@ void SD_D3_EN(){
   vTaskDelay(pdMS_TO_TICKS(10));
 }
 
+sdmmc_card_t* card;
+
 esp_err_t SD_Init() {
   // Initialize flags to a safe state
   SDCard_Flag = false;
   SDCard_Finish = false;
   
   // SD MMC
-  if(!SD_MMC.setPins(SD_CLK_PIN, SD_CMD_PIN, SD_D0_PIN, -1, -1, -1)){
-    printf("SD MMC: Pin change failed!\r\n");
-    return ESP_FAIL;
-  }
+  sdmmc_slot_config_t sdslot = SDMMC_SLOT_CONFIG_DEFAULT();
+  sdslot.clk = (gpio_num_t)SD_CLK_PIN;
+  sdslot.cmd = (gpio_num_t)SD_CMD_PIN;
+  sdslot.d0 = (gpio_num_t)SD_D0_PIN;
+  sdslot.d1 = (gpio_num_t)-1;
+  sdslot.d2 = (gpio_num_t)-1;
+  sdslot.d3 = (gpio_num_t)-1;
+  sdslot.width = 1;
+  sdslot.flags |= SDMMC_SLOT_FLAG_INTERNAL_PULLUP;
+  esp_vfs_fat_sdmmc_mount_config_t mtcfg = {
+	  .format_if_mount_failed = false,
+	  .max_files = 5,
+  };
+  sdmmc_host_t host = SDMMC_HOST_DEFAULT();
   
   // Enable SD card D3 line
   SD_D3_EN();
@@ -35,7 +55,8 @@ esp_err_t SD_Init() {
   bool sd_initialized = false;
   
   while (retry_count < 3 && !sd_initialized) {
-    sd_initialized = SD_MMC.begin("/sdcard", true, true);
+
+    sd_initialized = esp_vfs_fat_sdmmc_mount("/sdcard", &host, &sdslot, &mtcfg, &card);
     if (!sd_initialized) {
       printf("SD init attempt %d failed, retrying...\r\n", retry_count + 1);
       vTaskDelay(pdMS_TO_TICKS(100)); // Wait before retry
@@ -50,34 +71,6 @@ esp_err_t SD_Init() {
     return ESP_FAIL;
   }
   
-  // Check card type
-  uint8_t cardType = SD_MMC.cardType();
-  if(cardType == CARD_NONE){
-    printf("No SD card attached\r\n");
-    SD_MMC.end(); // Clean up if no card
-    return ESP_FAIL;
-  }
-  
-  // Card is present and initialized
-  printf("SD Card Type: ");
-  if(cardType == CARD_MMC){
-    printf("MMC\r\n");
-  } else if(cardType == CARD_SD){
-    printf("SDSC\r\n");
-  } else if(cardType == CARD_SDHC){
-    printf("SDHC\r\n");
-  } else {
-    printf("UNKNOWN\r\n");
-  }
-  
-  // Get and display card information
-  uint64_t totalBytes = SD_MMC.totalBytes();
-  uint64_t usedBytes = SD_MMC.usedBytes();
-  SDCard_Size = totalBytes/(1024*1024);
-  printf("Total space: %llu MB\r\n", totalBytes/(1024*1024));
-  printf("Used space: %llu MB\r\n", usedBytes/(1024*1024));
-  printf("Free space: %llu MB\r\n", (totalBytes - usedBytes)/(1024*1024));
-  
   // Set flags indicating successful initialization
   SDCard_Flag = true;
   SDCard_Finish = true;
@@ -86,12 +79,13 @@ esp_err_t SD_Init() {
 }
 
 bool SD_IsAvailable() {
-  return SDCard_Flag && SD_MMC.cardType() != CARD_NONE;
+  return SDCard_Flag;
 }
 
 void SD_End() {
   if (SDCard_Flag) {
-    SD_MMC.end();
+    esp_vfs_fat_sdcard_unmount("/sdcard", card);
+    sdmmc_host_deinit();
     SDCard_Flag = false;
   }
 }
@@ -102,32 +96,18 @@ bool File_Search(const char* directory, const char* fileName) {
     printf("SD card not available for file search\r\n");
     return false;
   }
-  
-  File Path = SD_MMC.open(directory);
-  if (!Path) {
-    printf("Path: <%s> does not exist\r\n", directory);
-    return false;
+  DIR* dir = opendir(directory);
+  if(dir == NULL){
+      return false;
   }
-  
-  File file = Path.openNextFile();
-  while (file) {
-    if (strcmp(file.name(), fileName) == 0) {
-      if (strcmp(directory, "/") == 0)
-        printf("File '%s%s' found in root directory.\r\n", directory, fileName);
-      else
-        printf("File '%s/%s' found in root directory.\r\n", directory, fileName);
-      Path.close();
-      return true;
-    }
-    file = Path.openNextFile();
+  struct dirent* entry;
+  while((entry = readdir(dir)) != NULL){
+	  if(strcmp(entry->d_name, fileName) == 0){
+		  closedir(dir);
+		  return true;
+	  }
   }
-  
-  if (strcmp(directory, "/") == 0)
-    printf("File '%s%s' not found in root directory.\r\n", directory, fileName);
-  else
-    printf("File '%s/%s' not found in root directory.\r\n", directory, fileName);
-  
-  Path.close();
+  closedir(dir);
   return false;
 }
 
@@ -137,35 +117,24 @@ uint16_t Folder_retrieval(const char* directory, const char* fileExtension, char
     printf("SD card not available for folder retrieval\r\n");
     return 0;
   }
-  
-  File Path = SD_MMC.open(directory);
-  if (!Path) {
+  DIR* dir = opendir(directory);
+  if (!dir) {
     printf("Path: <%s> does not exist\r\n", directory);
     return 0;
   }
   
   uint16_t fileCount = 0;
-  char filePath[100];
-  File file = Path.openNextFile();
-  
-  while (file && fileCount < maxFiles) {
-    if (!file.isDirectory() && strstr(file.name(), fileExtension)) {
-      strncpy(File_Name[fileCount], file.name(), 99);
-      File_Name[fileCount][99] = '\0'; // Ensure null termination
-      
-      if (strcmp(directory, "/") == 0) {
-        snprintf(filePath, 100, "%s%s", directory, file.name());
-      } else {
-        snprintf(filePath, 100, "%s/%s", directory, file.name());
-      }
-      
-      printf("File found: %s\r\n", filePath);
-      fileCount++;
-    }
-    file = Path.openNextFile();
-  }
-  
-  Path.close();
+  struct dirent* entry;
+      while ((entry = readdir(dir)) != NULL && fileCount < maxFiles) {
+	              if (entry->d_type == DT_DIR)
+			                  continue;
+
+		              if (strstr(entry->d_name, fileExtension) != NULL) {
+				                  strncpy(File_Name[fileCount], entry->d_name, 99);
+						              File_Name[fileCount][99] = '\0';
+							                  fileCount++;
+									          }
+			          }
   
   if (fileCount > 0) {
     printf("Retrieved %d %s files\r\n", fileCount, fileExtension);
@@ -174,13 +143,4 @@ uint16_t Folder_retrieval(const char* directory, const char* fileExtension, char
     printf("No files with extension '%s' found in directory: %s\r\n", fileExtension, directory);
     return 0;
   }
-}
-
-void Flash_test() {
-  printf("/********** RAM Test**********/\r\n");
-  // Get Flash size
-  uint32_t flashSize = ESP.getFlashChipSize();
-  Flash_Size = flashSize/1024/1024;
-  printf("Flash size: %d MB \r\n", Flash_Size);
-  printf("/******* RAM Test Over********/\r\n\r\n");
 }

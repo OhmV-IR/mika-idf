@@ -1,8 +1,5 @@
 #pragma once
-#include "Arduino.h"
 #include <cstring>
-#include "FS.h"
-#include "SD_MMC.h"
 #include <esp_err.h>
 
 #include "TCA9554PWR.h"
@@ -24,9 +21,6 @@ bool SD_IsAvailable();
 
 // End SD card operations and release resources
 void SD_End();
-
-// Flash memory test function
-void Flash_test();
 
 // Search for a specific file in a directory
 bool File_Search(const char* directory, const char* fileName);

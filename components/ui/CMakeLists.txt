@@ -1,3 +1,3 @@
 file(GLOB_RECURSE SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/src/*.c")
 
-idf_component_register(SRCS ${SOURCE_FILES} INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/src/" "${CMAKE_CURRENT_LIST_DIR}/src/screens")
+idf_component_register(SRCS ${SOURCE_FILES} INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/src/" "${CMAKE_CURRENT_LIST_DIR}/src/screens" REQUIRES lvgl)

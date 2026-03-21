@@ -1,25 +1,45 @@
 #include "TCA9554PWR.h"
+#include <driver/i2c.h>
 
+#define I2C_MASTER_PORT I2C_NUM_0
 /*****************************************************  Operation register REG   ****************************************************/   
 uint8_t Read_REG(uint8_t REG)                             // Read the value of the TCA9554PWR register REG
 {
-  Wire.beginTransmission(TCA9554_ADDRESS);                
-  Wire.write(REG);                                        
-  uint8_t result = Wire.endTransmission();               
-  if (result != 0) {                                     
+  uint8_t data = 0;
+  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, (TCA9554_ADDRESS << 1) | I2C_MASTER_WRITE, true);
+  i2c_master_write_byte(cmd, REG, true);
+  i2c_master_stop(cmd);
+  esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(100));
+  i2c_cmd_link_delete(cmd);               
+  if (ret != ESP_OK) {                                     
     printf("Data Transfer Failure !!!\r\n");
   }
-  Wire.requestFrom(TCA9554_ADDRESS, 1);                   
-  uint8_t bitsStatus = Wire.read();                        
-  return bitsStatus;                                     
+  cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, (TCA9554_ADDRESS << 1) | I2C_MASTER_READ, true);
+  i2c_master_read_byte(cmd, &data, I2C_MASTER_LAST_NACK);
+  i2c_master_stop(cmd);
+  ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(100));
+  i2c_cmd_link_delete(cmd);
+  if(ret != ESP_OK){
+	  printf("Failure to read from I2C: %s\n", esp_err_to_name(ret));
+	  return 0;
+  }
+  return data;                   
 }
 uint8_t Write_REG(uint8_t REG,uint8_t Data)              // Write Data to the REG register of the TCA9554PWR
 {
-  Wire.beginTransmission(TCA9554_ADDRESS);                
-  Wire.write(REG);                                        
-  Wire.write(Data);                                       
-  uint8_t result = Wire.endTransmission();                  
-  if (result != 0) {    
+  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, (TCA9554_ADDRESS << 1) | I2C_MASTER_WRITE, true);
+  i2c_master_write_byte(cmd, REG, true);
+  i2c_master_write_byte(cmd, Data, true);
+  i2c_master_stop(cmd);
+  esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(100));
+  i2c_cmd_link_delete(cmd);                                               
+  if (ret != ESP_OK) {    
     printf("Data write failure!!!\r\n");
     return -1;
   }

@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "Display_ST77916.h"
 #include "Audio_PCM5101.h"
 #include "RTC_PCF85063.h"

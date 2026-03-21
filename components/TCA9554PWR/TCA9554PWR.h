@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdio.h>
-#include "I2C_Driver.h"
 
 #define TCA9554_EXIO1 0x01
 #define TCA9554_EXIO2 0x02

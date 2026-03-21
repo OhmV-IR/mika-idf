@@ -1,5 +1,4 @@
 #pragma once
-#include "Arduino.h"
 #include <WiFi.h>
 
 // WiFi credentials - replace with your own
