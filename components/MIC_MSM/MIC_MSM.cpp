@@ -18,17 +18,17 @@ enum {
   SR_CMD_PLAY_MUSIC,
 };
 static const sr_cmd_t sr_commands[] = {
-  {0, "Turn on the backlight", "TkN nN jc BaKLiT"},                 // English
-  {1, "Turn off the backlight", "TkN eF jc BaKLiT"},                // English
-  {2, "backlight is brightest", "BaKLiT gZ BRiTcST"},               // English
-  {3, "backlight is darkest", "BaKLiT gZ DnRKcST"},                 // English
-  {4, "play music", "PLd MYoZgK"},                                  // English
+  {0, "Turn on the backlight"},                 // English
+  {1, "Turn off the backlight"},                // English
+  {2, "backlight is brightest"},               // English
+  {3, "backlight is darkest"},                 // English
+  {4, "play music"},                                  // English
 
-  // {0, "bei guang zui liang", "bei guang zui liang"},            // chinese
-  // {1, "bei guang zui an", "bei guang zui an"},                  // chinese
-  // {2, "guan bi bei guang", "guan bi bei guang"},                // chinese
-  // {3, "da kai bei guang", "da kai bei guang"},                  // chinese
-  // {4, "bo fang yin yue", "bo fang yin yue"},                    // chinese
+  // {0, "bei guang zui liang"},            // chinese
+  // {1, "bei guang zui an"},                  // chinese
+  // {2, "guan bi bei guang"},                // chinese
+  // {3, "da kai bei guang"},                  // chinese
+  // {4, "bo fang yin yue"},                    // chinese
 };
 bool play_Music_Flag = 0;
 uint8_t LCD_Backlight_original = 0;
