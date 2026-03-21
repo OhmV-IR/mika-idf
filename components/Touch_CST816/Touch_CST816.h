@@ -1,7 +1,7 @@
 #pragma once
+#include <Arduino.h>
+#include <Wire.h>
 #include "TCA9554PWR.h"
-#include <string>
-#include <esp_attr.h>
 
 #define CST816_ADDR           0x15
 #define CST816_INT_PIN        4
@@ -47,7 +47,7 @@ void Touch_Loop(void);
 uint8_t CST816_Touch_Reset(void);
 void CST816_AutoSleep(bool Sleep_State);
 uint16_t CST816_Read_cfg(void);
-std::string Touch_GestureName(void);
+String Touch_GestureName(void);
 uint8_t Touch_Read_Data(void);
 void example_touchpad_read(void);
 void IRAM_ATTR Touch_CST816_ISR(void);

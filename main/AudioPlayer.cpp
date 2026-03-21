@@ -36,7 +36,7 @@ void freeMemoryForDecoder() {
     }
     
     // Print memory info
-    Serial.printf("Heap after optimization: %d bytes\n", esp_get_free_heap_size());
+    Serial.printf("Heap after optimization: %ld bytes\n", esp_get_free_heap_size());
 }
 
 // Initialize the audio player
@@ -239,7 +239,7 @@ bool AudioPlayer_PlayTrack(int index) {
     }
     
     Serial.printf("Playing file: %s\n", filePath);
-    Serial.printf("Free heap before playback: %d bytes\n", esp_get_free_heap_size());
+    Serial.printf("Free heap before playback: %ld bytes\n", esp_get_free_heap_size());
     
     // Try simplified approach with memory handling
     try {

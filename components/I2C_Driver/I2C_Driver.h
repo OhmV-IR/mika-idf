@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+#include <Wire.h> 
 
 #define I2C_SCL_PIN       10
 #define I2C_SDA_PIN       11

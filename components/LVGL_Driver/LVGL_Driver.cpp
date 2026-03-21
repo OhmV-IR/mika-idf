@@ -5,7 +5,6 @@
     The provided LVGL library file must be installed first
 ******************************************************************************/
 #include "LVGL_Driver.h"
-#include <esp_timer.h>
 
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t buf1[ LVGL_BUF_LEN ];

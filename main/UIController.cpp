@@ -160,12 +160,12 @@ void UIController_UpdateTimeDisplay() {
             uint32_t remaining = (total > elapsed) ? (total - elapsed) : 0;
             
             // Just show minutes and seconds
-            snprintf(timeDisplayBuffer, sizeof(timeDisplayBuffer), "-%02d:%02d", 
+            snprintf(timeDisplayBuffer, sizeof(timeDisplayBuffer), "-%02ld:%02ld", 
                     remaining / 60, remaining % 60);
         } else {
             // For radio, show elapsed time
             elapsed = AudioPlayer_GetElapsedTime();
-            snprintf(timeDisplayBuffer, sizeof(timeDisplayBuffer), "%02d:%02d", 
+            snprintf(timeDisplayBuffer, sizeof(timeDisplayBuffer), "%02ld:%02ld", 
                     elapsed / 60, elapsed % 60);
         }
         
@@ -192,7 +192,7 @@ void UIController_UpdateProgressBar() {
 
 // Update the file/station list - IMPROVED VERSION
 void UIController_UpdateList() {
-    Serial.printf("Updating UI list, free memory: %d bytes\n", esp_get_free_heap_size());
+    Serial.printf("Updating UI list, free memory: %ld bytes\n", esp_get_free_heap_size());
     
     // Clear buffer
     memset(listBuffer, 0, sizeof(listBuffer));
@@ -292,7 +292,7 @@ void UIController_UpdateList() {
         }
     }
     
-    Serial.printf("List update complete, free memory: %d bytes\n", esp_get_free_heap_size());
+    Serial.printf("List update complete, free memory: %ld bytes\n", esp_get_free_heap_size());
 }
 
 // UI event callbacks - FORCED AUTO-PLAY FOR NAVIGATION

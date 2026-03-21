@@ -154,10 +154,10 @@ uint32_t Music_Duration() {
   uint32_t Audio_duration = audio.getAudioFileDuration(); 
   // Audio_duration = 360;
   if(Audio_duration > 60)
-    printf("Audio duration is %d minutes and %d seconds\r\n", Audio_duration/60, Audio_duration%60);
+    printf("Audio duration is %ld minutes and %ld seconds\r\n", Audio_duration/60, Audio_duration%60);
   else{
     if(Audio_duration != 0)
-      printf("Audio duration is %d seconds\r\n", Audio_duration);
+      printf("Audio duration is %ld seconds\r\n", Audio_duration);
     else
       printf("Fail : Failed to obtain the audio duration.\r\n");
   }
