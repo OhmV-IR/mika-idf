@@ -1,0 +1,6 @@
+IDF_PYTHON=C:/Espressif/python_env/idf5.5_py3.11_env/Scripts/python.exe
+IDF_PYTHON_DIR=C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\
+IDF_PYTHON_ENV_PATH=C:\Espressif\python_env\idf5.5_py3.11_env
+PYTHONNOUSERSITE=True
+TEMP_IDF_PYTHON_PATH="C:\Users\LAPTOP~1\AppData\Local\Temp\idf-python-path.txt"
+PYTHON=C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe

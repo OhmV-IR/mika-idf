@@ -58,7 +58,7 @@ uint8_t Read_EXIOS(uint8_t REG = TCA9554_INPUT_REG)       // Read the level of a
 /********************************************************** Set the EXIO output status **********************************************************/  
 void Set_EXIO(uint8_t Pin,uint8_t State)                  // Sets the level state of the Pin without affecting the other pins
 {
-  uint8_t Data;
+  uint8_t Data{};
   if(State < 2 && Pin < 9 && Pin > 0){  
     uint8_t bitsStatus = Read_EXIOS(TCA9554_OUTPUT_REG);
     if(State == 1)                                     
