@@ -5,6 +5,7 @@ pipeline {
 			agent {
 				dockerContainer {
 					image 'espressif/idf:v5.5.3'
+					label 'host'
 				}
 			}
 			options {
