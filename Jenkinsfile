@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage("Build firmware"){
 			agent {
-				docker {
+				dockerContainer {
 					image 'espressif/idf:v5.5.3'
 					args '-u root'
 				}
