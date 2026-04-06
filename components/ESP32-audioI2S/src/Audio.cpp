@@ -16,7 +16,6 @@ char audioI2SVers[] = "\
 *****************************************************************************************************************************************************/
 
 #include "Audio.h"
-#include "aac_decoder/aac_decoder.h"
 #include "flac_decoder/flac_decoder.h"
 #include "mp3_decoder/mp3_decoder.h"
 #include "opus_decoder/opus_decoder.h"
@@ -370,7 +369,6 @@ std::unique_ptr<Decoder> Audio::createDecoder(const std::string& type) {
     if (type == "MP3") return std::make_unique<MP3Decoder>(*this);
     if (type == "FLAC") return std::make_unique<FlacDecoder>(*this);
     if (type == "OPUS") return std::make_unique<OpusDecoder>(*this);
-    if (type == "AAC") return std::make_unique<AACDecoder>(*this);
     if (type == "VORBIS") return std::make_unique<VorbisDecoder>(*this);
     if (type == "WAV") return std::make_unique<WavDecoder>(*this);
     return nullptr;
@@ -5522,14 +5520,6 @@ uint32_t Audio::decodeError(int8_t res, uint8_t* data, int32_t bytesDecoded) {
 // —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 uint32_t Audio::decodeContinue(int8_t res, uint8_t* data, int32_t bytesDecoded, int32_t* bytesLeft) {
     // if(m_codec == CODEC_MP3){   if(res == MAD_ERROR_CONTINUE)    return bytesDecoded;} // nothing to play, mybe eof
-    if (m_codec == CODEC_AAC) {
-        if (res == AACDecoder::AAC_ID3_HDR) {
-            uint32_t size = ((data[6 + bytesDecoded] & 0x7F) << 21) | ((data[7 + bytesDecoded] & 0x7F) << 14) | ((data[8 + bytesDecoded] & 0x7F) << 7) | (data[9 + bytesDecoded] & 0x7F);
-            size += 10; // skip payload
-            return bytesDecoded + size;
-            if (bytesDecoded > *bytesLeft) AUDIO_LOG_ERROR("AAC input data too small bytesDecoded %i,> bytesLeft %i", bytesDecoded, *bytesLeft);
-        }
-    }
 
     if (m_codec == CODEC_FLAC) {
         if (res == FlacDecoder::FLAC_PARSE_OGG_DONE) return bytesDecoded;
@@ -5774,8 +5764,6 @@ bool Audio::i2s_config(){
     m_i2s_chan_cfg.dma_desc_num = m_i2s_items.DESC_NUM;   // number of DMA buffer
     m_i2s_chan_cfg.dma_frame_num = m_i2s_items.FRAME_NUM; // I2S frame number in one DMA buffer.
     m_i2s_chan_cfg.auto_clear = true;                     // i2s will always send zero automatically if no data to send
-    m_i2s_chan_cfg.allow_pd = false;
-    m_i2s_chan_cfg.intr_priority = 2;
     result = i2s_new_channel(&m_i2s_chan_cfg, &m_i2s_tx_handle, NULL);
     if(result != ESP_OK){ // ESP_ERR_INVALID_ARG?
         AUDIO_LOG_ERROR("I2S channel: invalid argument");
@@ -6610,9 +6598,9 @@ void Audio::IIR_filter(int32_t* sample) {
     float    s[2];
     s[LEFTCHANNEL] = (float)(s32[LEFTCHANNEL] * m_audio_items.pre_gain);
     s[RIGHTCHANNEL] = (float)(s32[RIGHTCHANNEL] * m_audio_items.pre_gain);
-    dsps_biquad_sf32(s, s, 1, m_audio_items.coeffs[0], m_audio_items.state_biquad[0]);
-    dsps_biquad_sf32(s, s, 1, m_audio_items.coeffs[1], m_audio_items.state_biquad[1]);
-    dsps_biquad_sf32(s, s, 1, m_audio_items.coeffs[2], m_audio_items.state_biquad[2]);
+    dsps_biquad_f32(s, s, 1, m_audio_items.coeffs[0], m_audio_items.state_biquad[0]);
+    dsps_biquad_f32(s, s, 1, m_audio_items.coeffs[1], m_audio_items.state_biquad[1]);
+    dsps_biquad_f32(s, s, 1, m_audio_items.coeffs[2], m_audio_items.state_biquad[2]);
     s32[LEFTCHANNEL] = (int32_t)lrintf(fminf(2147483647.0f, fmaxf(-2147483648.0f, s[LEFTCHANNEL])));
     s32[RIGHTCHANNEL] = (int32_t)lrintf(fminf(2147483647.0f, fmaxf(-2147483648.0f, s[RIGHTCHANNEL])));
 
