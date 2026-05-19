@@ -14,6 +14,10 @@
 // Flag to track SD card status
 bool sd_card_available = false;
 
+extern "C" void esp_timer_impl_update_apb_freq(uint32_t apb_ticks_per_us) {
+    // Stub to satisfy linker when using Arduino component with IDF 5.1 on S3
+}
+
 void Driver_Loop(void *parameter)
 {
     // Main driver loop

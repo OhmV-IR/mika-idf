@@ -2,11 +2,6 @@ pipeline {
 	agent { label 'host' }
 	stages {
 		stage("Build firmware"){
-			agent {
-				dockerContainer {
-					image 'espressif/idf:v5.5.3'
-				}
-			}
 			options {
 				throttle(['RamIntensiveJob'])
 			}
@@ -16,10 +11,10 @@ pipeline {
 						checkout scm
 					}
 					stage('Configure build'){
-						sh "idf.py set-target esp32s3"
+						sh "eim run \"idf.py set-target esp32s3\""
 					}
 					stage('Build'){
-						sh "idf.py build"
+						sh "eim run \"idf.py build\""
 					}
 					stage('Archive'){
 						archiveArtifacts artifacts: 'build/*.bin, build/*.map', fingerprint: true
