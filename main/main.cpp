@@ -15,7 +15,14 @@
 bool sd_card_available = false;
 
 extern "C" void esp_timer_impl_update_apb_freq(uint32_t apb_ticks_per_us) {
-    // Stub to satisfy linker when using Arduino component with IDF 5.1 on S3
+    static uint32_t last_apb_ticks_per_us = 0;
+    if (apb_ticks_per_us != last_apb_ticks_per_us) {
+        printf("esp_timer_impl_update_apb_freq: %lu MHz\n", (unsigned long)apb_ticks_per_us);
+        last_apb_ticks_per_us = apb_ticks_per_us;
+    }
+    // Note: In ESP-IDF 5.1 for ESP32-S3 with SYSTIMER implementation, 
+    // esp_timer uses XTAL (40MHz) by default, so APB frequency changes 
+    // do not affect its timing. This stub satisfies the Arduino component link requirement.
 }
 
 void Driver_Loop(void *parameter)

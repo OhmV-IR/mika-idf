@@ -1,5 +1,5 @@
 pipeline {
-	agent { label 'host' }
+	agent { label 'linux' }
 	stages {
 		stage("Build firmware"){
 			options {
