@@ -5,6 +5,7 @@
 .vscode/ipch
 .DS_Store
 *~
+test-template/
 testtemplate/
 managed_components/
 build/
