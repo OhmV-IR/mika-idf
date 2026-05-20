@@ -1,4 +1,4 @@
-#include "UIController.h"
+#include "MainScreenUIController.h"
 #include "Audio_PCM5101.h"
 #include "Display_ST77916.h"
 #include "AudioPlayer.h" 
@@ -30,11 +30,12 @@ static bool radioConnectionError = false;
 static uint32_t errorDisplayStartTime = 0;
 const uint32_t ERROR_DISPLAY_DURATION = 3000; // 3 seconds
 
-// Forward declaration of timer callback
-static void UIController_TimerCallback(lv_timer_t *timer);
+static void TimerCB(lv_timer_t* t){
+    MainScreenUIController::Get().TimerCallback(t);
+}
 
 // Initialize the UI controller
-void UIController_Init() {
+void MainScreenUIController::Init() {
     // Set initial volume using audio object directly
     AudioPlayer_SetVolume(10);
     
@@ -47,19 +48,19 @@ void UIController_Init() {
         
         // Delay list update to separate initialization phases
         vTaskDelay(20);
-        UIController_UpdateList();
+        UpdateList();
     } else {
         Serial.println("Audio player initialization failed");
     }
     
     // Set up event handlers for UI elements
-    UIController_SetupEvents();
+    SetupEvents();
     
     // Create timer for UI updates with reduced frequency
-    ui_update_timer = lv_timer_create(UIController_TimerCallback, 200, NULL);
+    ui_update_timer = lv_timer_create(TimerCB, 200, 0);
     
     // Initial UI update
-    UIController_UpdateUI();
+    UpdateUI();
     
     // Make sure playback is paused on startup
     AudioPlayer_Stop();
@@ -71,17 +72,17 @@ void UIController_Init() {
 }
 
 // Timer callback for UI updates
-static void UIController_TimerCallback(lv_timer_t *timer) {
-    UIController_UpdateUI();
+void MainScreenUIController::TimerCallback(lv_timer_t *timer) {
+    MainScreenUIController::Get().UpdateUI();
 }
 
 // Process UI events in a loop (called from main loop)
-void UIController_Loop() {
+void MainScreenUIController::Loop() {
     // Empty function - UI updates handled by timer
 }
 
 // Update UI elements with current state
-void UIController_UpdateUI() {
+void MainScreenUIController::UpdateUI() {
     uint32_t currentMillis = millis();
     
     // Check if we need to update the roller to match current track
@@ -102,13 +103,13 @@ void UIController_UpdateUI() {
     
     // Update time display every 1 second
     if (currentMillis - lastTimeUpdate >= 1000) {
-        UIController_UpdateTimeDisplay();
+        UpdateTimeDisplay();
         lastTimeUpdate = currentMillis;
     }
     
     // Update progress bar every 500ms
     if (currentMillis - lastProgressUpdate >= 500) {
-        UIController_UpdateProgressBar();
+        UpdateProgressBar();
         lastProgressUpdate = currentMillis;
     }
     
@@ -120,31 +121,73 @@ void UIController_UpdateUI() {
 }
 
 // Set up event handlers for UI elements
-void UIController_SetupEvents() {
+void MainScreenUIController::SetupEvents() {
     // Mode button
-    lv_obj_add_event_cb(ui_Button_Mode, UI_ModeButtonCallback, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_Button_Mode, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_ModeButtonCallback(e);
+        }
+    }, LV_EVENT_VALUE_CHANGED, this);
     
     // Play/Pause button
-    lv_obj_add_event_cb(ui_Button_PlayPause, UI_PlayPauseButtonCallback, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(ui_Button_PlayPause, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_PlayPauseButtonCallback(e);
+        }
+    }, LV_EVENT_CLICKED, this);
     
     // Next button
-    lv_obj_add_event_cb(ui_Button_Next, UI_NextButtonCallback, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(ui_Button_Next, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_NextButtonCallback(e);
+        }
+    }, LV_EVENT_CLICKED, this);
     
     // Previous button
-    lv_obj_add_event_cb(ui_Button_Previous, UI_PreviousButtonCallback, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(ui_Button_Previous, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_PreviousButtonCallback(e);
+        }
+    }, LV_EVENT_CLICKED, this);
     
     // List roller
-    lv_obj_add_event_cb(ui_Roller_list, UI_ListCallback, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_Roller_list, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_ListCallback(e);
+        }
+    }, LV_EVENT_VALUE_CHANGED, this);
     
     // Volume arc control
-    lv_obj_add_event_cb(ui_Arc_Volume, UI_VolumeArcCallback, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_Arc_Volume, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_VolumeArcCallback(e);
+        }
+    }, LV_EVENT_VALUE_CHANGED, this);
     
     // Brightness arc control
-    lv_obj_add_event_cb(ui_Arc_Brightness, UI_BrightnessArcCallback, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(ui_Arc_Brightness, [](lv_event_t* e) {
+        // Extract the original instance from the event's user_data pointer
+        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
+        if (Controller) {
+            Controller->UI_BrightnessArcCallback(e);
+        }
+    }, LV_EVENT_VALUE_CHANGED, this);
 }
 
 // Update the time display - Now with error display
-void UIController_UpdateTimeDisplay() {
+void MainScreenUIController::UpdateTimeDisplay() {
     if (radioConnectionError && AudioPlayer_GetMode() == MODE_WEB_RADIO) {
         // Show error message for radio
         lv_label_set_text(ui_Label_Time, "Error !!!");
@@ -175,7 +218,7 @@ void UIController_UpdateTimeDisplay() {
 }
 
 // Update the progress bar
-void UIController_UpdateProgressBar() {
+void MainScreenUIController::UpdateProgressBar() {
     if (AudioPlayer_GetMode() == MODE_MUSIC_PLAYER) {
         if (AudioPlayer_IsPlaying()) {
             int progress = (int)(AudioPlayer_GetProgress() * 100);
@@ -191,7 +234,7 @@ void UIController_UpdateProgressBar() {
 }
 
 // Update the file/station list - IMPROVED VERSION
-void UIController_UpdateList() {
+void MainScreenUIController::UpdateList() {
     Serial.printf("Updating UI list, free memory: %ld bytes\n", esp_get_free_heap_size());
     
     // Clear buffer
@@ -297,7 +340,7 @@ void UIController_UpdateList() {
 
 // UI event callbacks - FORCED AUTO-PLAY FOR NAVIGATION
 
-void UI_ModeButtonCallback(lv_event_t *e) {
+void MainScreenUIController::UI_ModeButtonCallback(lv_event_t *e) {
     lv_obj_t *obj = lv_event_get_target(e);
     bool checked = lv_obj_has_state(obj, LV_STATE_CHECKED);
     
@@ -313,10 +356,10 @@ void UI_ModeButtonCallback(lv_event_t *e) {
     
     // Update the list with delay
     vTaskDelay(100);
-    UIController_UpdateList();
+    UpdateList();
 }
 
-void UI_PlayPauseButtonCallback(lv_event_t *e) {
+void MainScreenUIController::UI_PlayPauseButtonCallback(lv_event_t *e) {
     // Toggle playback - only plays when explicitly pressed
     bool isPlaying = AudioPlayer_TogglePlayPause();
     
@@ -336,7 +379,7 @@ void UI_PlayPauseButtonCallback(lv_event_t *e) {
 }
 
 // WITH FORCED AUTO-PLAY: Next button definitely plays the next track
-void UI_NextButtonCallback(lv_event_t *e) {
+void MainScreenUIController::UI_NextButtonCallback(lv_event_t *e) {
     bool wasPlaying = AudioPlayer_IsPlaying();
     
     // Go to next track or station without stopping first
@@ -356,7 +399,7 @@ void UI_NextButtonCallback(lv_event_t *e) {
             // Check for radio error
             if (AudioPlayer_GetMode() == MODE_WEB_RADIO && !success) {
                 radioConnectionError = true;
-                UIController_UpdateTimeDisplay(); // Force update to show error
+                UpdateTimeDisplay(); // Force update to show error
             }
             
             // Update UI button state
@@ -366,7 +409,7 @@ void UI_NextButtonCallback(lv_event_t *e) {
 }
 
 // WITH FORCED AUTO-PLAY: Previous button definitely plays the previous track
-void UI_PreviousButtonCallback(lv_event_t *e) {
+void MainScreenUIController::UI_PreviousButtonCallback(lv_event_t *e) {
     // Stop current playback first
     AudioPlayer_Stop();
     
@@ -386,7 +429,7 @@ void UI_PreviousButtonCallback(lv_event_t *e) {
         // Check for radio error
         if (AudioPlayer_GetMode() == MODE_WEB_RADIO && !success) {
             radioConnectionError = true;
-            UIController_UpdateTimeDisplay(); // Force update to show error
+            UpdateTimeDisplay(); // Force update to show error
         }
         
         // Update UI button state
@@ -395,7 +438,7 @@ void UI_PreviousButtonCallback(lv_event_t *e) {
 }
 
 // List selection doesn't auto-play
-void UI_ListCallback(lv_event_t *e) {
+void MainScreenUIController::UI_ListCallback(lv_event_t *e) {
     // Get selected index
     int selectedIndex = lv_roller_get_selected(ui_Roller_list);
     
@@ -426,7 +469,7 @@ void UI_VolumeArcCallback(lv_event_t *e) {
 */
 
 // With reverse mode fix
-void UI_VolumeArcCallback(lv_event_t *e) {
+void MainScreenUIController::UI_VolumeArcCallback(lv_event_t *e) {
     lv_obj_t *arc = lv_event_get_target(e);
     int value = lv_arc_get_value(arc); // Value from 0 to 100
 
@@ -452,7 +495,7 @@ void UI_VolumeArcCallback(lv_event_t *e) {
 
 
 // Brightness control callback
-void UI_BrightnessArcCallback(lv_event_t *e) {
+void MainScreenUIController::UI_BrightnessArcCallback(lv_event_t *e) {
     lv_obj_t *arc = lv_event_get_target(e);
     currentBrightness = lv_arc_get_value(arc);
     

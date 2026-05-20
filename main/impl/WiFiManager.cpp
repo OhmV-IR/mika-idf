@@ -1,4 +1,5 @@
 #include "WiFiManager.h"
+#include "WifiConfiguration.h"
 
 bool wifi_available = false;
 unsigned long last_reconnect_attempt = 0;
@@ -12,7 +13,12 @@ bool WiFi_Init() {
     WiFi.mode(WIFI_STA);
     
     // Begin WiFi connection
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    std::optional<WifiConfiguration> cfg = WifiConfiguration::LoadFromSPIFFS();
+    if(!cfg.has_value()){
+        wifi_available = false;
+        return false;
+    }
+    WiFi.begin(cfg.value().ssid, cfg.value().pass);
     
     // Wait for connection with timeout
     unsigned long start_time = millis();
@@ -64,7 +70,12 @@ void WiFi_Reconnect() {
     delay(1000);
     
     // Try to reconnect
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    std::optional<WifiConfiguration> cfg = WifiConfiguration::LoadFromSPIFFS();
+    if(!cfg.has_value()){
+        wifi_available = false;
+        return;
+    }
+    WiFi.begin(cfg.value().ssid, cfg.value().pass);
     
     // Wait briefly for connection
     unsigned long start_time = millis();
