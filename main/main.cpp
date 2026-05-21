@@ -7,6 +7,7 @@
 #include "BAT_Driver.h"
 
 #include "ui.h"  // LVGL UI initialization (e.g., from SquareLine Studio)
+#include "BackgroundController.h"
 
 // https://www.youtube.com/nishad2m8
 // https://buymeacoffee.com/nishad2m8
@@ -98,6 +99,8 @@ void setup()
         NULL,
         0           // Core 0 for events
     );
+
+    BackgroundController::Init();
     
     Serial.println("Setup complete");
 }

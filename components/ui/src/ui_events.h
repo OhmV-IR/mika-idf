@@ -10,6 +10,8 @@
 extern "C" {
 #endif
 
+void BackgroundController_WakeUp(lv_event_t * e);
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif

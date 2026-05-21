@@ -1,0 +1,9 @@
+menu "MusicPuck Settings"
+
+    config AFK_MS_BEFORE_BACKGROUND
+        int "Time before background splashscreen(ms)"
+        default 20000
+        help
+            Measured in milliseconds, must not be negative.
+
+endmenu

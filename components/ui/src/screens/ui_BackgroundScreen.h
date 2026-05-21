@@ -3,18 +3,20 @@
 // LVGL version: 8.3.11
 // Project name: Player
 
-#ifndef UI_HOMESCREEN_H
-#define UI_HOMESCREEN_H
+#ifndef UI_BACKGROUNDSCREEN_H
+#define UI_BACKGROUNDSCREEN_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// SCREEN: ui_HomeScreen
-extern void ui_HomeScreen_screen_init(void);
-extern void ui_HomeScreen_screen_destroy(void);
-extern lv_obj_t * ui_HomeScreen;
+// SCREEN: ui_BackgroundScreen
+extern void ui_BackgroundScreen_screen_init(void);
+extern void ui_BackgroundScreen_screen_destroy(void);
+extern lv_obj_t * ui_BackgroundScreen;
 extern lv_obj_t * ui_Container5;
+extern void ui_event_ImgButton2(lv_event_t * e);
+extern lv_obj_t * ui_ImgButton2;
 extern lv_obj_t * ui_Label5;
 // CUSTOM VARIABLES
 

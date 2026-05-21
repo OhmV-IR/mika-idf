@@ -29,7 +29,7 @@ extern "C" {
 
 #include "screens/ui_MusicScreen.h"
 #include "screens/ui_SettingsScreen.h"
-#include "screens/ui_HomeScreen.h"
+#include "screens/ui_BackgroundScreen.h"
 
 ///////////////////// VARIABLES ////////////////////
 
