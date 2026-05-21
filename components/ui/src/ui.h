@@ -27,7 +27,9 @@ extern "C" {
 
 ///////////////////// SCREENS ////////////////////
 
-#include "screens/ui_Screen1.h"
+#include "screens/ui_MusicScreen.h"
+#include "screens/ui_SettingsScreen.h"
+#include "screens/ui_HomeScreen.h"
 
 ///////////////////// VARIABLES ////////////////////
 
@@ -46,6 +48,8 @@ LV_IMG_DECLARE(ui_img_1224885811);    // assets/Images/icon-brightness.png
 LV_IMG_DECLARE(ui_img_267335790);    // assets/Images/icon-volume.png
 LV_IMG_DECLARE(ui_img_295812069);    // assets/Images/icon-music.png
 LV_IMG_DECLARE(ui_img_1947372027);    // assets/Images/icon-radio.png
+LV_IMG_DECLARE(ui_img_wifi_png);    // assets/wifi.png
+LV_IMG_DECLARE(ui_img_821000619);    // assets/bluetooth-connected.png
 
 // UI INIT
 void ui_init(void);

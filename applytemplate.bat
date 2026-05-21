@@ -15,5 +15,11 @@ if not exist "%ORIGIN_DIR%" (
 )
 
 echo [INFO] Copying ui component
-robocopy "%ORIGIN_DIR%\Player\libraries\ui" "components\ui" /E /IS /R:3 /W:5
+rmdir /s /q "components\ui\src"
+del "components\ui\ui.h"
+del "components\ui\library.properties"
+robocopy "%ORIGIN_DIR%\Player\libraries\ui\src" "components\ui\src" /E /IS /R:3 /W:5
+copy "%ORIGIN_DIR%\Player\libraries\ui\ui.h" "components\ui\ui.h"
+copy "%ORIGIN_DIR%\Player\libraries\library.properties" "components\ui\library.properties"
 echo [INFO] Done copying ui component
+idf.py fullclean

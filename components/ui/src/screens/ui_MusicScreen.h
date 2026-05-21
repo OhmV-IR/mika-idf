@@ -3,17 +3,17 @@
 // LVGL version: 8.3.11
 // Project name: Player
 
-#ifndef UI_SCREEN1_H
-#define UI_SCREEN1_H
+#ifndef UI_MUSICSCREEN_H
+#define UI_MUSICSCREEN_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// SCREEN: ui_Screen1
-extern void ui_Screen1_screen_init(void);
-extern void ui_Screen1_screen_destroy(void);
-extern lv_obj_t * ui_Screen1;
+// SCREEN: ui_MusicScreen
+extern void ui_MusicScreen_screen_init(void);
+extern void ui_MusicScreen_screen_destroy(void);
+extern lv_obj_t * ui_MusicScreen;
 extern lv_obj_t * ui_Container1;
 extern lv_obj_t * ui_Panel_volume;
 extern lv_obj_t * ui_Arc_Volume;

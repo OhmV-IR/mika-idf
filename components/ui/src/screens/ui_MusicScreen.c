@@ -5,7 +5,7 @@
 
 #include "../ui.h"
 
-lv_obj_t * ui_Screen1 = NULL;
+lv_obj_t * ui_MusicScreen = NULL;
 lv_obj_t * ui_Container1 = NULL;
 lv_obj_t * ui_Panel_volume = NULL;
 lv_obj_t * ui_Arc_Volume = NULL;
@@ -26,14 +26,14 @@ lv_obj_t * ui_Button_Mode = NULL;
 
 // build funtions
 
-void ui_Screen1_screen_init(void)
+void ui_MusicScreen_screen_init(void)
 {
-    ui_Screen1 = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_Screen1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_Screen1, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Screen1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_MusicScreen = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_MusicScreen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_MusicScreen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_MusicScreen, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Container1 = lv_obj_create(ui_Screen1);
+    ui_Container1 = lv_obj_create(ui_MusicScreen);
     lv_obj_remove_style_all(ui_Container1);
     lv_obj_set_width(ui_Container1, 372);
     lv_obj_set_height(ui_Container1, 364);
@@ -43,7 +43,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_clear_flag(ui_Container1, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_img_src(ui_Container1, &ui_img_33876936, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Panel_volume = lv_obj_create(ui_Screen1);
+    ui_Panel_volume = lv_obj_create(ui_MusicScreen);
     lv_obj_set_width(ui_Panel_volume, 77);
     lv_obj_set_height(ui_Panel_volume, 206);
     lv_obj_set_x(ui_Panel_volume, 279);
@@ -70,7 +70,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_color(ui_Arc_Volume, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Arc_Volume, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
 
-    ui_Panel_brightness = lv_obj_create(ui_Screen1);
+    ui_Panel_brightness = lv_obj_create(ui_MusicScreen);
     lv_obj_set_width(ui_Panel_brightness, 77);
     lv_obj_set_height(ui_Panel_brightness, 206);
     lv_obj_set_x(ui_Panel_brightness, 5);
@@ -98,7 +98,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_opa(ui_Arc_Brightness, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_Arc_Brightness, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
 
-    ui_Container_controlls = lv_obj_create(ui_Screen1);
+    ui_Container_controlls = lv_obj_create(ui_MusicScreen);
     lv_obj_remove_style_all(ui_Container_controlls);
     lv_obj_set_width(ui_Container_controlls, 212);
     lv_obj_set_height(ui_Container_controlls, 66);
@@ -162,7 +162,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_img_src(ui_Button_Next, &ui_img_1997223691, LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_img_opa(ui_Button_Next, 150, LV_PART_MAIN | LV_STATE_PRESSED);
 
-    ui_Bar1 = lv_bar_create(ui_Screen1);
+    ui_Bar1 = lv_bar_create(ui_MusicScreen);
     lv_bar_set_value(ui_Bar1, 25, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_Bar1, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_Bar1, 235);
@@ -176,7 +176,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_color(ui_Bar1, lv_color_hex(0x2BDDCE), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Bar1, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
-    ui_Roller_list = lv_roller_create(ui_Screen1);
+    ui_Roller_list = lv_roller_create(ui_MusicScreen);
     lv_roller_set_options(ui_Roller_list, "Song Title", LV_ROLLER_MODE_NORMAL);
     lv_roller_set_selected(ui_Roller_list, 1, LV_ANIM_OFF);
     lv_obj_set_width(ui_Roller_list, 211);
@@ -205,7 +205,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_color(ui_Roller_list, lv_color_hex(0xFFFFFF), LV_PART_SELECTED | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Roller_list, 0, LV_PART_SELECTED | LV_STATE_DEFAULT);
 
-    ui_Label_Time = lv_label_create(ui_Screen1);
+    ui_Label_Time = lv_label_create(ui_MusicScreen);
     lv_obj_set_width(ui_Label_Time, 107);
     lv_obj_set_height(ui_Label_Time, 16);
     lv_obj_set_x(ui_Label_Time, 65);
@@ -214,7 +214,7 @@ void ui_Screen1_screen_init(void)
     lv_label_set_text(ui_Label_Time, "10:10");
     lv_obj_set_style_text_align(ui_Label_Time, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Panel_devider = lv_obj_create(ui_Screen1);
+    ui_Panel_devider = lv_obj_create(ui_MusicScreen);
     lv_obj_set_width(ui_Panel_devider, 235);
     lv_obj_set_height(ui_Panel_devider, 3);
     lv_obj_set_x(ui_Panel_devider, 0);
@@ -225,7 +225,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_bg_opa(ui_Panel_devider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_Panel_devider, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Image5 = lv_img_create(ui_Screen1);
+    ui_Image5 = lv_img_create(ui_MusicScreen);
     lv_img_set_src(ui_Image5, &ui_img_1224885811);
     lv_obj_set_width(ui_Image5, LV_SIZE_CONTENT);   /// 20
     lv_obj_set_height(ui_Image5, LV_SIZE_CONTENT);    /// 20
@@ -235,7 +235,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_add_flag(ui_Image5, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_Image5, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Image6 = lv_img_create(ui_Screen1);
+    ui_Image6 = lv_img_create(ui_MusicScreen);
     lv_img_set_src(ui_Image6, &ui_img_267335790);
     lv_obj_set_width(ui_Image6, LV_SIZE_CONTENT);   /// 20
     lv_obj_set_height(ui_Image6, LV_SIZE_CONTENT);    /// 20
@@ -245,7 +245,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_add_flag(ui_Image6, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_Image6, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Button_Mode = lv_btn_create(ui_Screen1);
+    ui_Button_Mode = lv_btn_create(ui_MusicScreen);
     lv_obj_set_width(ui_Button_Mode, 71);
     lv_obj_set_height(ui_Button_Mode, 71);
     lv_obj_set_x(ui_Button_Mode, 0);
@@ -262,12 +262,12 @@ void ui_Screen1_screen_init(void)
 
 }
 
-void ui_Screen1_screen_destroy(void)
+void ui_MusicScreen_screen_destroy(void)
 {
-    if(ui_Screen1) lv_obj_del(ui_Screen1);
+    if(ui_MusicScreen) lv_obj_del(ui_MusicScreen);
 
     // NULL screen variables
-    ui_Screen1 = NULL;
+    ui_MusicScreen = NULL;
     ui_Container1 = NULL;
     ui_Panel_volume = NULL;
     ui_Arc_Volume = NULL;
