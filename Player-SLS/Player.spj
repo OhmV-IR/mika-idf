@@ -3235,7 +3235,7 @@
                   {
                     "nid": 1030,
                     "strtype": "LABEL/Text",
-                    "strval": "Settings",
+                    "strval": "Settings Page",
                     "InheritedType": 10
                   },
                   {
@@ -5409,7 +5409,7 @@
   },
   "animations": [],
   "selected_theme": "Default",
-  "selected_screen": "GUID42562749-617894S9234113",
+  "selected_screen": "GUID43275157-633861S1755140",
   "info": {
     "name": "Player.spj",
     "depth": 1,
@@ -5438,7 +5438,7 @@
     "separate_screen_save": false,
     "hierarchy_state_save": false,
     "reverse_event_order": false,
-    "backup_cnt": 27,
+    "backup_cnt": 28,
     "autosave_cnt": 0,
     "group_color_cnt": 0,
     "imagebytearrayprefix": null,
