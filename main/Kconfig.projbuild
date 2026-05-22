@@ -12,4 +12,10 @@ menu "MusicPuck Settings"
         help
             Measured in milliseconds, must not be negative
 
+    config WIFI_SSID_REFRESH_INTERVAL
+        int "Time between ssid list refreshes in settings(ms)"
+        default 7500
+        help
+            Measured in milliseconds, must not be negative
+
 endmenu

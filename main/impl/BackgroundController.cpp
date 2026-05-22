@@ -64,7 +64,7 @@ static const std::array<lv_img_dsc_t, 4> backgroundImages = {
     ui_img_bg3_png,    // assets/bg3.png
     ui_img_bg4_png     // assets/bg4.png
 };
-int currentImageIndex = 0;
+uint32_t currentImageIndex = 0;
 
 void BackgroundController::OnBackgroundTimerTick(lv_timer_t* timer){
     currentImageIndex++;
