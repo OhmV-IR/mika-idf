@@ -14,5 +14,5 @@ dependencies:
   #   # `public` flag doesn't have an effect dependencies of the `main` component.
   #   # All dependencies of `main` are public by default.
   #   public: true
-  lvgl/lvgl: ==8.3.11
+  lvgl/lvgl: ==9.2.2
   espressif/arduino-esp32: '*'

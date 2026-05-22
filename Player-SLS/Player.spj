@@ -2272,12 +2272,6 @@
                 "InheritedType": 10
               },
               {
-                "nid": 1040,
-                "strtype": "LABEL/Recolor",
-                "strval": "False",
-                "InheritedType": 2
-              },
-              {
                 "part": "lv.PART.MAIN",
                 "childs": [
                   {
@@ -2613,6 +2607,12 @@
                 "InheritedType": 6
               },
               {
+                "nid": 1060,
+                "strtype": "IMAGE/Inner_align",
+                "strval": "CENTER",
+                "InheritedType": 3
+              },
+              {
                 "part": "lv.PART.MAIN",
                 "childs": [],
                 "nid": 1060,
@@ -2776,6 +2776,12 @@
                 "strtype": "IMAGE/Scale",
                 "integer": 256,
                 "InheritedType": 6
+              },
+              {
+                "nid": 1060,
+                "strtype": "IMAGE/Inner_align",
+                "strval": "CENTER",
+                "InheritedType": 3
               },
               {
                 "part": "lv.PART.MAIN",
@@ -3239,12 +3245,6 @@
                     "InheritedType": 10
                   },
                   {
-                    "nid": 1040,
-                    "strtype": "LABEL/Recolor",
-                    "strval": "False",
-                    "InheritedType": 2
-                  },
-                  {
                     "part": "lv.PART.MAIN",
                     "childs": [],
                     "nid": 1050,
@@ -3528,12 +3528,6 @@
                             "InheritedType": 10
                           },
                           {
-                            "nid": 1040,
-                            "strtype": "LABEL/Recolor",
-                            "strval": "False",
-                            "InheritedType": 2
-                          },
-                          {
                             "part": "lv.PART.MAIN",
                             "childs": [
                               {
@@ -3714,6 +3708,12 @@
                             "strtype": "IMAGE/Scale",
                             "integer": 60,
                             "InheritedType": 6
+                          },
+                          {
+                            "nid": 1060,
+                            "strtype": "IMAGE/Inner_align",
+                            "strval": "CENTER",
+                            "InheritedType": 3
                           },
                           {
                             "part": "lv.PART.MAIN",
@@ -3991,12 +3991,6 @@
                             "strtype": "LABEL/Text",
                             "strval": "Configure",
                             "InheritedType": 10
-                          },
-                          {
-                            "nid": 1040,
-                            "strtype": "LABEL/Recolor",
-                            "strval": "False",
-                            "InheritedType": 2
                           },
                           {
                             "part": "lv.PART.MAIN",
@@ -4406,12 +4400,6 @@
                             "InheritedType": 10
                           },
                           {
-                            "nid": 1040,
-                            "strtype": "LABEL/Recolor",
-                            "strval": "False",
-                            "InheritedType": 2
-                          },
-                          {
                             "part": "lv.PART.MAIN",
                             "childs": [
                               {
@@ -4592,6 +4580,12 @@
                             "strtype": "IMAGE/Scale",
                             "integer": 60,
                             "InheritedType": 6
+                          },
+                          {
+                            "nid": 1060,
+                            "strtype": "IMAGE/Inner_align",
+                            "strval": "CENTER",
+                            "InheritedType": 3
                           },
                           {
                             "part": "lv.PART.MAIN",
@@ -4869,12 +4863,6 @@
                             "strtype": "LABEL/Text",
                             "strval": "Configure",
                             "InheritedType": 10
-                          },
-                          {
-                            "nid": 1040,
-                            "strtype": "LABEL/Recolor",
-                            "strval": "False",
-                            "InheritedType": 2
                           },
                           {
                             "part": "lv.PART.MAIN",
@@ -5408,7 +5396,7 @@
                   {
                     "nid": 10,
                     "strtype": "OBJECT/Name",
-                    "strval": "ImgButton2",
+                    "strval": "BackgroundImage",
                     "InheritedType": 10
                   },
                   {
@@ -5527,31 +5515,31 @@
                   {
                     "nid": 1040,
                     "strtype": "IMGBUTTON/Image_pressed",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1050,
                     "strtype": "IMGBUTTON/Image_disabled",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1060,
                     "strtype": "IMGBUTTON/Image_checked_released",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1070,
                     "strtype": "IMGBUTTON/Image_checked_pressed",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1080,
                     "strtype": "IMGBUTTON/Image_checked_disabled",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
@@ -5636,7 +5624,7 @@
                   {
                     "nid": 10,
                     "strtype": "OBJECT/Name",
-                    "strval": "Label5",
+                    "strval": "Time",
                     "InheritedType": 10
                   },
                   {
@@ -5759,12 +5747,6 @@
                     "InheritedType": 10
                   },
                   {
-                    "nid": 1040,
-                    "strtype": "LABEL/Recolor",
-                    "strval": "False",
-                    "InheritedType": 2
-                  },
-                  {
                     "part": "lv.PART.MAIN",
                     "childs": [
                       {
@@ -5795,7 +5777,7 @@
               {
                 "nid": 10,
                 "strtype": "OBJECT/Name",
-                "strval": "Container5",
+                "strval": "BackgroundContainer",
                 "InheritedType": 10
               },
               {
@@ -6062,12 +6044,12 @@
     "shape": "CIRCLE",
     "multilang": "DISABLE",
     "description": "",
-    "board": "ESP32-S3-1.85C",
-    "board_version": "v1.0.0",
+    "board": "Eclipse with SDL for development on PC",
+    "board_version": "v2.0.1",
     "editor_version": "1.6.1",
     "image": "",
     "export_temp_image": false,
-    "force_export_images": false,
+    "force_export_images": true,
     "flat_export": false,
     "advanced_alpha": false,
     "pointfilter": false,
@@ -6079,18 +6061,18 @@
     "separate_screen_save": false,
     "hierarchy_state_save": false,
     "reverse_event_order": false,
-    "backup_cnt": 36,
+    "backup_cnt": 40,
     "autosave_cnt": 0,
     "group_color_cnt": 0,
-    "imagebytearrayprefix": null,
-    "lvgl_version": "8.3.11",
+    "imagebytearrayprefix": "",
+    "lvgl_version": "9.2.2",
     "callfuncsexport": "C_FILE",
     "imageexport": "SOURCE",
-    "lvgl_include_path": "",
+    "lvgl_include_path": "lvgl.h",
     "naming": "Name",
     "naming_force_lowercase": false,
     "naming_add_subcomponent": false,
-    "nidcnt": 1000222,
+    "nidcnt": 1000634,
     "BitDepth": 16,
     "Name": "Player"
   }

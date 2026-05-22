@@ -341,7 +341,7 @@ void MainScreenUIController::UpdateList() {
 // UI event callbacks - FORCED AUTO-PLAY FOR NAVIGATION
 
 void MainScreenUIController::UI_ModeButtonCallback(lv_event_t *e) {
-    lv_obj_t *obj = lv_event_get_target(e);
+    lv_obj_t *obj = (lv_obj_t*)lv_event_get_target(e);
     bool checked = lv_obj_has_state(obj, LV_STATE_CHECKED);
     
     // Stop any current playback first
@@ -470,7 +470,7 @@ void UI_VolumeArcCallback(lv_event_t *e) {
 
 // With reverse mode fix
 void MainScreenUIController::UI_VolumeArcCallback(lv_event_t *e) {
-    lv_obj_t *arc = lv_event_get_target(e);
+    lv_obj_t *arc = (lv_obj_t*)lv_event_get_target(e);
     int value = lv_arc_get_value(arc); // Value from 0 to 100
 
     // Define background arc angles
@@ -496,7 +496,7 @@ void MainScreenUIController::UI_VolumeArcCallback(lv_event_t *e) {
 
 // Brightness control callback
 void MainScreenUIController::UI_BrightnessArcCallback(lv_event_t *e) {
-    lv_obj_t *arc = lv_event_get_target(e);
+    lv_obj_t *arc = (lv_obj_t*)lv_event_get_target(e);
     currentBrightness = lv_arc_get_value(arc);
     
     // Ensure brightness is within valid range (10-100)

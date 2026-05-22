@@ -15,6 +15,9 @@ SET(SOURCES screens/ui_MusicScreen.c
     images/ui_img_295812069.c
     images/ui_img_1947372027.c
     images/ui_img_wifi_png.c
-    images/ui_img_821000619.c)
+    images/ui_img_821000619.c
+    images/ui_img_bg2_png.c
+    images/ui_img_bg3_png.c
+    images/ui_img_bg4_png.c)
 
 add_library(ui ${SOURCES})

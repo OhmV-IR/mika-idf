@@ -6,4 +6,10 @@ menu "MusicPuck Settings"
         help
             Measured in milliseconds, must not be negative.
 
+    config BACKGROUND_CHANGE_PERIOD
+        int "Time between background changes(ms)"
+        default 30000
+        help
+            Measured in milliseconds, must not be negative
+
 endmenu
