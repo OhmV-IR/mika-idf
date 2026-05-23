@@ -1,6 +1,7 @@
 SET(SOURCES screens/ui_MusicScreen.c
     screens/ui_SettingsScreen.c
     screens/ui_BackgroundScreen.c
+    screens/ui_WifiConnectScreen.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c
@@ -16,6 +17,8 @@ SET(SOURCES screens/ui_MusicScreen.c
     images/ui_img_1947372027.c
     images/ui_img_wifi_png.c
     images/ui_img_821000619.c
+    images/ui_img_check_png.c
+    images/ui_img_x_png.c
     images/ui_img_bg2_png.c
     images/ui_img_bg3_png.c
     images/ui_img_bg4_png.c)

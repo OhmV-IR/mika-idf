@@ -21,6 +21,7 @@ extern "C" {
 #include "screens/ui_MusicScreen.h"
 #include "screens/ui_SettingsScreen.h"
 #include "screens/ui_BackgroundScreen.h"
+#include "screens/ui_WifiConnectScreen.h"
 
 ///////////////////// VARIABLES ////////////////////
 
@@ -41,6 +42,8 @@ LV_IMG_DECLARE(ui_img_295812069);    // assets/Images/icon-music.png
 LV_IMG_DECLARE(ui_img_1947372027);    // assets/Images/icon-radio.png
 LV_IMG_DECLARE(ui_img_wifi_png);    // assets/wifi.png
 LV_IMG_DECLARE(ui_img_821000619);    // assets/bluetooth-connected.png
+LV_IMG_DECLARE(ui_img_check_png);    // assets/check.png
+LV_IMG_DECLARE(ui_img_x_png);    // assets/x.png
 LV_IMG_DECLARE(ui_img_bg2_png);    // assets/bg2.png
 LV_IMG_DECLARE(ui_img_bg3_png);    // assets/bg3.png
 LV_IMG_DECLARE(ui_img_bg4_png);    // assets/bg4.png

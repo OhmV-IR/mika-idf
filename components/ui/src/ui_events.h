@@ -11,6 +11,9 @@ extern "C" {
 #endif
 
 void BackgroundController_WakeUp(lv_event_t * e);
+void WifiConnectController_SSIDScreenLoaded(lv_event_t * e);
+void WifiConnectController_SSIDSelectClicked(lv_event_t * e);
+void WifiConnectController_SSIDCancelClicked(lv_event_t * e);
 
 #ifdef __cplusplus
 } /*extern "C"*/

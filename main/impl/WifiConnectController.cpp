@@ -1,5 +1,9 @@
 #include "WifiConnectController.h"
 #include "ui_WifiConnectScreen.h"
+#include <string>
+#include <esp_wifi.h>
+#include <esp_log.h>
+#include <vector>
 
 static const char* TAG = "WifiConnectController";
 
@@ -35,8 +39,8 @@ void WifiConnectController::UpdateSSIDList() {
     }
     
     lv_roller_set_options(ui_WifiSSIDList, std::string(ssidList.begin(), ssidList.end() - 1).c_str(), LV_ROLLER_MODE_NORMAL);
-    if(nOptions >= oldOptionCount) {
-        lv_roller_set_selected(ui_WifiSSIDList, nOptions - 1, LV_ANIM_OFF);
+    if(ap_count >= lv_roller_get_option_count(ui_WifiSSIDList)) {
+        lv_roller_set_selected(ui_WifiSSIDList, ap_count - 1, LV_ANIM_OFF);
     }
 }
 

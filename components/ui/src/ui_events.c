@@ -9,3 +9,18 @@ void BackgroundController_WakeUp(lv_event_t * e)
 {
 	// Your code here
 }
+
+void WifiConnectController_SSIDScreenLoaded(lv_event_t * e)
+{
+	// Your code here
+}
+
+void WifiConnectController_SSIDSelectClicked(lv_event_t * e)
+{
+	// Your code here
+}
+
+void WifiConnectController_SSIDCancelClicked(lv_event_t * e)
+{
+	// Your code here
+}

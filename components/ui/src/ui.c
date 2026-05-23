@@ -33,6 +33,7 @@ void ui_init(void)
     ui_MusicScreen_screen_init();
     ui_SettingsScreen_screen_init();
     ui_BackgroundScreen_screen_init();
+    ui_WifiConnectScreen_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_MusicScreen);
 }
@@ -42,4 +43,5 @@ void ui_destroy(void)
     ui_MusicScreen_screen_destroy();
     ui_SettingsScreen_screen_destroy();
     ui_BackgroundScreen_screen_destroy();
+    ui_WifiConnectScreen_screen_destroy();
 }
