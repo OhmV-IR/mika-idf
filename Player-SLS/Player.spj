@@ -7430,13 +7430,11 @@
           },
           {
             "nid": 90,
-            "flags": 1048576,
             "strtype": "OBJECT/Flags",
             "InheritedType": 1
           },
           {
             "nid": 225,
-            "flags": 1048576,
             "strtype": "OBJECT/Scrolling",
             "InheritedType": 1
           },
@@ -7472,7 +7470,6 @@
           },
           {
             "nid": 320,
-            "flags": 1048576,
             "strtype": "OBJECT/States",
             "InheritedType": 1
           },
@@ -7584,7 +7581,7 @@
   },
   "animations": [],
   "selected_theme": "Default",
-  "selected_screen": "GUID13187915-319326S5085142",
+  "selected_screen": "GUID66226494-633906S9055140",
   "info": {
     "name": "Player.spj",
     "depth": 1,
@@ -7613,7 +7610,7 @@
     "separate_screen_save": false,
     "hierarchy_state_save": false,
     "reverse_event_order": false,
-    "backup_cnt": 48,
+    "backup_cnt": 49,
     "autosave_cnt": 0,
     "group_color_cnt": 0,
     "imagebytearrayprefix": "",

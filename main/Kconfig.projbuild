@@ -12,6 +12,18 @@ menu "MusicPuck Settings"
         help
             Measured in milliseconds, must not be negative
 
+    config BACKGROUND_TIME_UPDATE_PERIOD
+        int "Time between clock updates(ms)"
+        default 50
+        help
+            Measured in milliseconds, must not be negative
+
+    config BACKGROUND_CLOCK_24HR
+        bool "Background clock is 24hr"
+        default n
+        help
+            If on, the clock on the background screen will be displayed in 24hr format. If off, will be displayed in 12hr format.
+
     config WIFI_SSID_REFRESH_INTERVAL
         int "Time between ssid list refreshes in settings(ms)"
         default 7500
