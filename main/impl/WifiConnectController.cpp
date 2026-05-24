@@ -4,6 +4,7 @@
 #include <esp_wifi.h>
 #include <esp_log.h>
 #include <vector>
+#include "ui_events.h"
 
 static const char* TAG = "WifiConnectController";
 

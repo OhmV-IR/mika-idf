@@ -5,6 +5,10 @@
 #include <array>
 #include "ui.h"
 #include "lvgl.h"
+#include <esp_log.h>
+#include "ui_events.h"
+
+static const char* TAG = "BackgroundController";
 
 lv_indev_t* BackgroundController::GetTouchscreen(){
     lv_indev_t* indev = lv_indev_get_next(NULL);
@@ -53,7 +57,8 @@ void BackgroundController::OnTimerTick(lv_timer_t* timer){
     lv_timer_resume(backgroundTimer);
 }
 
-void BackgroundController_WakeUp(){
+void BackgroundController_WakeUp(lv_event_t* e){
+    ESP_LOGI(TAG, "Woke up");
     lv_scr_load(ui_MusicScreen);
     lv_timer_pause(backgroundTimer);
 }

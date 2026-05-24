@@ -8,5 +8,3 @@ namespace BackgroundController {
     bool IsBackgroundActive();
     void OnBackgroundTimerTick(lv_timer_t* timer);
 }
-
-void BackgroundController_WakeUp();

@@ -5,7 +5,6 @@ SET(SOURCES screens/ui_MusicScreen.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c
-    ui_events.c
     images/ui_img_33876936.c
     images/ui_img_1799517327.c
     images/ui_img_1898897582.c

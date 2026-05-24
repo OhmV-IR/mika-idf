@@ -5515,31 +5515,31 @@
                   {
                     "nid": 1040,
                     "strtype": "IMGBUTTON/Image_pressed",
-                    "strval": "-",
+                    "strval": "",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1050,
                     "strtype": "IMGBUTTON/Image_disabled",
-                    "strval": "-",
+                    "strval": "",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1060,
                     "strtype": "IMGBUTTON/Image_checked_released",
-                    "strval": "-",
+                    "strval": "",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1070,
                     "strtype": "IMGBUTTON/Image_checked_pressed",
-                    "strval": "-",
+                    "strval": "",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1080,
                     "strtype": "IMGBUTTON/Image_checked_disabled",
-                    "strval": "-",
+                    "strval": "",
                     "InheritedType": 5
                   },
                   {
@@ -5606,7 +5606,7 @@
                           {
                             "nid": 1000215,
                             "strtype": "CALL FUNCTION/Dont_export_function",
-                            "strval": "False",
+                            "strval": "True",
                             "InheritedType": 2
                           }
                         ],
@@ -6668,7 +6668,7 @@
                           {
                             "nid": 1000663,
                             "strtype": "CALL FUNCTION/Dont_export_function",
-                            "strval": "False",
+                            "strval": "True",
                             "InheritedType": 2
                           }
                         ],
@@ -7198,7 +7198,7 @@
                           {
                             "nid": 1000673,
                             "strtype": "CALL FUNCTION/Dont_export_function",
-                            "strval": "False",
+                            "strval": "True",
                             "InheritedType": 2
                           }
                         ],
@@ -7559,7 +7559,7 @@
                   {
                     "nid": 1000647,
                     "strtype": "CALL FUNCTION/Dont_export_function",
-                    "strval": "False",
+                    "strval": "True",
                     "InheritedType": 2
                   }
                 ],
@@ -7613,7 +7613,7 @@
     "separate_screen_save": false,
     "hierarchy_state_save": false,
     "reverse_event_order": false,
-    "backup_cnt": 44,
+    "backup_cnt": 48,
     "autosave_cnt": 0,
     "group_color_cnt": 0,
     "imagebytearrayprefix": "",
