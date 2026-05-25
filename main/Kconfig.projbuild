@@ -30,4 +30,22 @@ menu "MusicPuck Settings"
         help
             Measured in milliseconds, must not be negative
 
+    config SETTINGS_BUTTON_GPIO_PIN
+        int "GPIO Pin for settings button"
+        default 0
+        help
+            By default is the boot button.
+
+    config SETTINGS_BUTTON_SHORT_PRESS_TIME
+        int "Short press time for settings button"
+        default 50
+        help
+            Time in milliseconds
+
+    config SETTINGS_BUTTON_LONG_PRESS_TIME
+        int "Long press time for settings button"
+        default 100
+        help
+            Time in milliseconds
+
 endmenu

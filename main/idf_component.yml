@@ -16,3 +16,4 @@ dependencies:
   #   public: true
   lvgl/lvgl: ==9.2.2
   espressif/arduino-esp32: '*'
+  espressif/button: '*'

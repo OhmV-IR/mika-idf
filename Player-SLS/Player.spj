@@ -3014,13 +3014,11 @@
           },
           {
             "nid": 90,
-            "flags": 1048576,
             "strtype": "OBJECT/Flags",
             "InheritedType": 1
           },
           {
             "nid": 225,
-            "flags": 1048576,
             "strtype": "OBJECT/Scrolling",
             "InheritedType": 1
           },
@@ -3056,7 +3054,6 @@
           },
           {
             "nid": 320,
-            "flags": 1048576,
             "strtype": "OBJECT/States",
             "InheritedType": 1
           },
@@ -4126,6 +4123,82 @@
                         "strtype": "BUTTON/Style_main",
                         "strval": "lv.PART.MAIN, Rectangle, Pad, Text, Transform",
                         "InheritedType": 11
+                      },
+                      {
+                        "disabled": false,
+                        "nid": 1000696,
+                        "strtype": "_event/EventHandler",
+                        "strval": "PRESSED",
+                        "childs": [
+                          {
+                            "nid": 1000697,
+                            "strtype": "_event/name",
+                            "strval": "OnWifiConfigure",
+                            "InheritedType": 10
+                          },
+                          {
+                            "nid": 1000698,
+                            "strtype": "_event/condition_C",
+                            "strval": "",
+                            "InheritedType": 10
+                          },
+                          {
+                            "nid": 1000699,
+                            "strtype": "_event/condition_P",
+                            "strval": "",
+                            "InheritedType": 10
+                          },
+                          {
+                            "nid": 1000700,
+                            "strtype": "_event/action",
+                            "strval": "CHANGE SCREEN",
+                            "childs": [
+                              {
+                                "nid": 1000701,
+                                "strtype": "CHANGE SCREEN/Name",
+                                "strval": "CHANGE SCREEN",
+                                "InheritedType": 10
+                              },
+                              {
+                                "nid": 1000702,
+                                "strtype": "CHANGE SCREEN/Call",
+                                "strval": "ChangeScreen( <{Screen_to}>, lv.SCR_LOAD_ANIM.<{Fade_mode}>, <{Speed}>, <{Delay}>)",
+                                "InheritedType": 10
+                              },
+                              {
+                                "nid": 1000703,
+                                "strtype": "CHANGE SCREEN/CallC",
+                                "strval": "_ui_screen_change( &<{Screen_to}>, LV_SCR_LOAD_ANIM_<{Fade_mode}>, <{Speed}>, <{Delay}>, &<{Screen_to}>_screen_init);",
+                                "InheritedType": 10
+                              },
+                              {
+                                "nid": 1000704,
+                                "strtype": "CHANGE SCREEN/Screen_to",
+                                "strval": "GUID13187915-319326S5085142",
+                                "InheritedType": 9
+                              },
+                              {
+                                "nid": 1000705,
+                                "strtype": "CHANGE SCREEN/Fade_mode",
+                                "strval": "NONE",
+                                "InheritedType": 3
+                              },
+                              {
+                                "nid": 1000706,
+                                "strtype": "CHANGE SCREEN/Speed",
+                                "integer": 500,
+                                "InheritedType": 6
+                              },
+                              {
+                                "nid": 1000707,
+                                "strtype": "CHANGE SCREEN/Delay",
+                                "InheritedType": 6
+                              }
+                            ],
+                            "InheritedType": 10
+                          }
+                        ],
+                        "InheritedType": 4
                       }
                     ],
                     "saved_objtypeKey": "BUTTON"
@@ -5515,31 +5588,31 @@
                   {
                     "nid": 1040,
                     "strtype": "IMGBUTTON/Image_pressed",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1050,
                     "strtype": "IMGBUTTON/Image_disabled",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1060,
                     "strtype": "IMGBUTTON/Image_checked_released",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1070,
                     "strtype": "IMGBUTTON/Image_checked_pressed",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
                     "nid": 1080,
                     "strtype": "IMGBUTTON/Image_checked_disabled",
-                    "strval": "",
+                    "strval": "-",
                     "InheritedType": 5
                   },
                   {
@@ -7581,7 +7654,7 @@
   },
   "animations": [],
   "selected_theme": "Default",
-  "selected_screen": "GUID66226494-633906S9055140",
+  "selected_screen": "GUID43275157-633861S1755140",
   "info": {
     "name": "Player.spj",
     "depth": 1,
@@ -7610,7 +7683,7 @@
     "separate_screen_save": false,
     "hierarchy_state_save": false,
     "reverse_event_order": false,
-    "backup_cnt": 49,
+    "backup_cnt": 53,
     "autosave_cnt": 0,
     "group_color_cnt": 0,
     "imagebytearrayprefix": "",
@@ -7621,7 +7694,7 @@
     "naming": "Name",
     "naming_force_lowercase": false,
     "naming_add_subcomponent": false,
-    "nidcnt": 1000696,
+    "nidcnt": 1000708,
     "BitDepth": 16,
     "Name": "Player"
   }

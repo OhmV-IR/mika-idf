@@ -8,6 +8,7 @@
 
 #include "ui.h"  // LVGL UI initialization (e.g., from SquareLine Studio)
 #include "BackgroundController.h"
+#include "SettingsController.h"
 
 // https://www.youtube.com/nishad2m8
 // https://buymeacoffee.com/nishad2m8
@@ -101,7 +102,7 @@ void setup()
     );
 
     BackgroundController::Init();
-    
+    SettingsController::Init();    
     Serial.println("Setup complete");
 }
 

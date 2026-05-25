@@ -22,6 +22,14 @@ lv_obj_t * ui_BluetoothIcon = NULL;
 lv_obj_t * ui_ConfigureBluetoothButton = NULL;
 lv_obj_t * ui_WifiButtonText2 = NULL;
 // event funtions
+void ui_event_ConfigureWifiButton(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_PRESSED) {
+        _ui_screen_change(&ui_WifiConnectScreen, LV_SCR_LOAD_ANIM_NONE, 500, 0, &ui_WifiConnectScreen_screen_init);
+    }
+}
 
 // build funtions
 
@@ -161,6 +169,8 @@ void ui_SettingsScreen_screen_init(void)
     lv_obj_set_height(ui_WifiButtonText2, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_WifiButtonText2, LV_ALIGN_CENTER);
     lv_label_set_text(ui_WifiButtonText2, "Configure");
+
+    lv_obj_add_event_cb(ui_ConfigureWifiButton, ui_event_ConfigureWifiButton, LV_EVENT_ALL, NULL);
 
 }
 

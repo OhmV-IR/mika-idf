@@ -21,6 +21,7 @@ extern lv_obj_t * ui_WifiSettings;
 extern lv_obj_t * ui_WifiSettingLabel2;
 extern lv_obj_t * ui_WiFiLabel2;
 extern lv_obj_t * ui_WiFiIcon2;
+extern void ui_event_ConfigureWifiButton(lv_event_t * e);
 extern lv_obj_t * ui_ConfigureWifiButton;
 extern lv_obj_t * ui_WifiButtonText;
 extern lv_obj_t * ui_BluetoothSettings;
