@@ -5,5 +5,5 @@ FILE(GLOB_RECURSE app_sources ${dir}/src/*.cpp)
 idf_component_register(SRCS ${app_sources}      
                     REQUIRES "ESP32-audioI2S"
                     INCLUDE_DIRS "src"
-                    REQUIRES wear_levelling arduino-esp32 esp-dsp
+                    REQUIRES wear_levelling arduino-esp32 esp-dsp esp_wifi esp_event esp_netif driver network_provisioning protocomm
 )
