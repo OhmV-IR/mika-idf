@@ -15,4 +15,4 @@ dependencies:
   #   # All dependencies of `main` are public by default.
   #   public: true
   lvgl/lvgl: ==9.2.2
-  espressif/arduino-esp32: '*'
+  espressif/arduino-esp32: '^3.3.11'
