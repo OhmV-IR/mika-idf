@@ -10,3 +10,5 @@ testtemplate/
 managed_components/
 build/
 EXPORT_HERE
+!EXPORT_HERE/dummy
+components/ui/src/dummy

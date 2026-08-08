@@ -67,8 +67,6 @@ void MainScreenUIController::Init() {
     lv_obj_clear_state(ui_Button_PlayPause, LV_STATE_CHECKED);
     
     // Initialize volume and brightness arc controls
-    lv_arc_set_value(ui_Arc_Volume, AudioPlayer_GetVolume() * 100 / 21);
-    lv_arc_set_value(ui_Arc_Brightness, currentBrightness);
 }
 
 // Timer callback for UI updates
@@ -92,15 +90,6 @@ void MainScreenUIController::UpdateUI() {
     int currentTrackIndex = AudioPlayer_GetCurrentTrackIndex();
     int currentStationIndex = AudioPlayer_GetCurrentStationIndex();
     
-    // If track/station index has changed, update the roller
-    if (AudioPlayer_GetMode() == MODE_MUSIC_PLAYER && currentTrackIndex != lastTrackIndex) {
-        lv_roller_set_selected(ui_Roller_list, currentTrackIndex, LV_ANIM_OFF);
-        lastTrackIndex = currentTrackIndex;
-    } else if (AudioPlayer_GetMode() == MODE_WEB_RADIO && currentStationIndex != lastStationIndex) {
-        lv_roller_set_selected(ui_Roller_list, currentStationIndex, LV_ANIM_OFF);
-        lastStationIndex = currentStationIndex;
-    }
-    
     // Update time display every 1 second
     if (currentMillis - lastTimeUpdate >= 1000) {
         UpdateTimeDisplay();
@@ -115,21 +104,10 @@ void MainScreenUIController::UpdateUI() {
     
     // Update play/pause button state
     lv_obj_add_state(ui_Button_PlayPause, AudioPlayer_IsPlaying() ? LV_STATE_CHECKED : (lv_state_t)0);
-    
-    // Update mode button state
-    lv_obj_add_state(ui_Button_Mode, AudioPlayer_GetMode() == MODE_WEB_RADIO ? LV_STATE_CHECKED : (lv_state_t)0);
 }
 
 // Set up event handlers for UI elements
 void MainScreenUIController::SetupEvents() {
-    // Mode button
-    lv_obj_add_event_cb(ui_Button_Mode, [](lv_event_t* e) {
-        // Extract the original instance from the event's user_data pointer
-        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
-        if (Controller) {
-            Controller->UI_ModeButtonCallback(e);
-        }
-    }, LV_EVENT_VALUE_CHANGED, this);
     
     // Play/Pause button
     lv_obj_add_event_cb(ui_Button_PlayPause, [](lv_event_t* e) {
@@ -157,33 +135,6 @@ void MainScreenUIController::SetupEvents() {
             Controller->UI_PreviousButtonCallback(e);
         }
     }, LV_EVENT_CLICKED, this);
-    
-    // List roller
-    lv_obj_add_event_cb(ui_Roller_list, [](lv_event_t* e) {
-        // Extract the original instance from the event's user_data pointer
-        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
-        if (Controller) {
-            Controller->UI_ListCallback(e);
-        }
-    }, LV_EVENT_VALUE_CHANGED, this);
-    
-    // Volume arc control
-    lv_obj_add_event_cb(ui_Arc_Volume, [](lv_event_t* e) {
-        // Extract the original instance from the event's user_data pointer
-        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
-        if (Controller) {
-            Controller->UI_VolumeArcCallback(e);
-        }
-    }, LV_EVENT_VALUE_CHANGED, this);
-    
-    // Brightness arc control
-    lv_obj_add_event_cb(ui_Arc_Brightness, [](lv_event_t* e) {
-        // Extract the original instance from the event's user_data pointer
-        auto* Controller = static_cast<MainScreenUIController*>(lv_event_get_user_data(e));
-        if (Controller) {
-            Controller->UI_BrightnessArcCallback(e);
-        }
-    }, LV_EVENT_VALUE_CHANGED, this);
 }
 
 // Update the time display - Now with error display
@@ -281,21 +232,12 @@ void MainScreenUIController::UpdateList() {
                     vTaskDelay(1);
                 }
             }
-            
-            // Set the options
-            lv_roller_set_options(ui_Roller_list, listBuffer, LV_ROLLER_MODE_NORMAL);
-            
+                    
             // Set selected item
             int currentIndex = AudioPlayer_GetCurrentTrackIndex();
-            if (currentIndex < filesToShow) {
-                lv_roller_set_selected(ui_Roller_list, currentIndex, LV_ANIM_OFF);
-            } else {
-                lv_roller_set_selected(ui_Roller_list, 0, LV_ANIM_OFF);
-            }
         } else {
             // No files found
             strcpy(listBuffer, "No MP3 files");
-            lv_roller_set_options(ui_Roller_list, listBuffer, LV_ROLLER_MODE_NORMAL);
         }
     } else {
         // Show radio stations
@@ -323,16 +265,8 @@ void MainScreenUIController::UpdateList() {
             vTaskDelay(1);
         }
         
-        // Set the options
-        lv_roller_set_options(ui_Roller_list, listBuffer, LV_ROLLER_MODE_NORMAL);
-        
         // Set selected item
         int currentStation = AudioPlayer_GetCurrentStationIndex();
-        if (currentStation < stationsToShow) {
-            lv_roller_set_selected(ui_Roller_list, currentStation, LV_ANIM_OFF);
-        } else {
-            lv_roller_set_selected(ui_Roller_list, 0, LV_ANIM_OFF);
-        }
     }
     
     Serial.printf("List update complete, free memory: %ld bytes\n", esp_get_free_heap_size());
@@ -385,11 +319,6 @@ void MainScreenUIController::UI_NextButtonCallback(lv_event_t *e) {
     // Go to next track or station without stopping first
     if (AudioPlayer_Next()) {
         // Update the selected item in the list
-        if (AudioPlayer_GetMode() == MODE_MUSIC_PLAYER) {
-            lv_roller_set_selected(ui_Roller_list, AudioPlayer_GetCurrentTrackIndex(), LV_ANIM_OFF);
-        } else {
-            lv_roller_set_selected(ui_Roller_list, AudioPlayer_GetCurrentStationIndex(), LV_ANIM_OFF);
-        }
         
         // Force auto-play if in music player mode or was previously playing in radio mode
         if (AudioPlayer_GetMode() == MODE_MUSIC_PLAYER || wasPlaying) {
@@ -416,11 +345,6 @@ void MainScreenUIController::UI_PreviousButtonCallback(lv_event_t *e) {
     // Go to previous track or station
     if (AudioPlayer_Previous()) {
         // Update the selected item in the list
-        if (AudioPlayer_GetMode() == MODE_MUSIC_PLAYER) {
-            lv_roller_set_selected(ui_Roller_list, AudioPlayer_GetCurrentTrackIndex(), LV_ANIM_OFF);
-        } else {
-            lv_roller_set_selected(ui_Roller_list, AudioPlayer_GetCurrentStationIndex(), LV_ANIM_OFF);
-        }
         
         // Force auto-play of the previous item
         Serial.println("UI: Auto-playing after Previous button");
@@ -434,23 +358,6 @@ void MainScreenUIController::UI_PreviousButtonCallback(lv_event_t *e) {
         
         // Update UI button state
         lv_obj_add_state(ui_Button_PlayPause, success ? LV_STATE_CHECKED : (lv_state_t)0);
-    }
-}
-
-// List selection doesn't auto-play
-void MainScreenUIController::UI_ListCallback(lv_event_t *e) {
-    // Get selected index
-    int selectedIndex = lv_roller_get_selected(ui_Roller_list);
-    
-    // Stop any current playback
-    AudioPlayer_Stop();
-    lv_obj_clear_state(ui_Button_PlayPause, LV_STATE_CHECKED);
-    
-    // Set the correct track or station
-    if (AudioPlayer_GetMode() == MODE_MUSIC_PLAYER) {
-        AudioPlayer_SetTrack(selectedIndex);
-    } else {
-        AudioPlayer_SetStation(selectedIndex);
     }
 }
 

@@ -2,12 +2,10 @@
 #include "Audio_PCM5101.h"
 #include "RTC_PCF85063.h"
 #include "LVGL_Driver.h"
-#include "MIC_MSM.h"
 #include "SD_Card.h"
 #include "BAT_Driver.h"
 
 #include "ui.h"  // LVGL UI initialization (e.g., from SquareLine Studio)
-#include "BackgroundController.h"
 
 // https://www.youtube.com/nishad2m8
 // https://buymeacoffee.com/nishad2m8
@@ -99,9 +97,7 @@ void setup()
         NULL,
         0           // Core 0 for events
     );
-
-    BackgroundController::Init();
-    
+        
     Serial.println("Setup complete");
 }
 

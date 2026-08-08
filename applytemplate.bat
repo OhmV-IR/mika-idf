@@ -1,13 +1,16 @@
 @echo off
 setlocal enabledelayedexpansion
 
+if not exist "EXPORT_HERE" (
+    echo "[ERROR] EXPORT_HERE folder DNE."
+    exit /b 1
+)
+
 echo [INFO] Copying ui component
 rmdir /s /q "components\ui\src"
-del "components\ui\ui.h"
-del "components\ui\library.properties"
-robocopy "EXPORT_HERE\Player\libraries\ui\src" "components\ui\src" /E /IS /R:3 /W:5
-copy "EXPORT_HERE\Player\libraries\ui\ui.h" "components\ui\ui.h"
-copy "EXPORT_HERE\Player\libraries\library.properties" "components\ui\library.properties"
+xcopy "EXPORT_HERE\*" "components\ui\src\" /E /Y /I /Q
 echo "[INFO] Done copying ui component"
 echo "[INFO] When ready to exit monitor, press Ctrl and ] at the same time"
-eim run "idf.py build flash monitor" v5.5.5
+if "%~1"!="--no-flash" (
+    eim run "idf.py reconfigure build flash monitor" v5.5.5
+)

@@ -2,7 +2,6 @@
 
 #include <lvgl.h>
 #include "lv_conf.h"
-// #include <demos/lv_demos.h>
 #include <esp_heap_caps.h>
 #include "Display_ST77916.h"
 #include "Touch_CST816.h"
@@ -13,11 +12,23 @@
 
 #define EXAMPLE_LVGL_TICK_PERIOD_MS  10
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void Lvgl_print(const char * buf);
-void Lvgl_Display_LCD( lv_display_t *disp_drv, const lv_area_t *area, lv_color_t *color_p ); // Displays LVGL content on the LCD.    This function implements associating LVGL data to the LCD screen
-void Lvgl_Touchpad_Read( lv_indev_t * indev_drv, lv_indev_data_t * data );                // Read the touchpad
+
+// LVGL v8 Display Flush Callback (uses lv_disp_drv_t instead of lv_display_t)
+void Lvgl_Display_LCD(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p);
+
+// LVGL v8 Touchpad Read Callback (uses lv_indev_drv_t instead of lv_indev_t)
+void Lvgl_Touchpad_Read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data);
+
 void example_increase_lvgl_tick(void *arg);
 
 void Lvgl_Init(void);
 void Lvgl_Loop(void);
+
+#ifdef __cplusplus
+}
+#endif
