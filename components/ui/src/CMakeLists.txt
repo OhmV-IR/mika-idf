@@ -1,23 +1,21 @@
-SET(SOURCES screens/ui_MusicScreen.c
-    screens/ui_SettingsScreen.c
-    screens/ui_BackgroundScreen.c
+SET(SOURCES components/ui_comp_makebed.c
+    components/ui_comp.c
+    screens/ui_Screen3.c
+    screens/ui_Screen5.c
+    screens/ui_Screen6.c
+    screens/ui_Screen7.c
+    screens/ui_Screen8.c
+    screens/ui_Screen9.c
+    screens/ui_HomeScreen.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c
-    ui_events.c
     images/ui_img_33876936.c
     images/ui_img_1799517327.c
     images/ui_img_1898897582.c
     images/ui_img_1779231396.c
     images/ui_img_1997223691.c
     images/ui_img_1224885811.c
-    images/ui_img_267335790.c
-    images/ui_img_295812069.c
-    images/ui_img_1947372027.c
-    images/ui_img_wifi_png.c
-    images/ui_img_821000619.c
-    images/ui_img_bg2_png.c
-    images/ui_img_bg3_png.c
-    images/ui_img_bg4_png.c)
+    images/ui_img_267335790.c)
 
 add_library(ui ${SOURCES})
