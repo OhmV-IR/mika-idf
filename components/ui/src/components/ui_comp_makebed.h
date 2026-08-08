@@ -3,12 +3,19 @@
 // LVGL version: 8.3.11
 // Project name: Player
 
-#ifndef _UI_EVENTS_H
-#define _UI_EVENTS_H
+#ifndef _UI_COMP_MAKEBED_H
+#define _UI_COMP_MAKEBED_H
+
+#include "../ui.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+// COMPONENT makebed
+#define UI_COMP_MAKEBED_MAKEBED 0
+#define _UI_COMP_MAKEBED_NUM 1
+lv_obj_t * ui_makebed_create(lv_obj_t * comp_parent);
 
 #ifdef __cplusplus
 } /*extern "C"*/

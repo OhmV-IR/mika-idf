@@ -1,0 +1,207 @@
+{
+  "guid": "GUID39726062-702210S3975155",
+  "properties": [
+    {
+      "nid": 10,
+      "strtype": "OBJECT/Name",
+      "strval": "makebed",
+      "InheritedType": 10
+    },
+    {
+      "nid": 20,
+      "flags": 1048576,
+      "strtype": "OBJECT/Layout",
+      "InheritedType": 1
+    },
+    {
+      "Flow": 0,
+      "Wrap": false,
+      "Reversed": false,
+      "MainAlignment": 0,
+      "CrossAlignment": 0,
+      "TrackAlignment": 0,
+      "LayoutType": 0,
+      "nid": 30,
+      "strtype": "OBJECT/Layout_type",
+      "strval": "No_layout",
+      "InheritedType": 13
+    },
+    {
+      "nid": 40,
+      "flags": 1048576,
+      "strtype": "OBJECT/Transform",
+      "InheritedType": 1
+    },
+    {
+      "nid": 50,
+      "flags": 34,
+      "strtype": "OBJECT/Position",
+      "intarray": [
+        -16,
+        -22
+      ],
+      "InheritedType": 7
+    },
+    {
+      "nid": 60,
+      "flags": 51,
+      "strtype": "OBJECT/Size",
+      "intarray": [
+        1,
+        1
+      ],
+      "InheritedType": 7
+    },
+    {
+      "nid": 70,
+      "strtype": "OBJECT/Align",
+      "strval": "CENTER",
+      "InheritedType": 3
+    },
+    {
+      "nid": 75,
+      "strtype": "OBJECT/Extend_click_area",
+      "InheritedType": 6
+    },
+    {
+      "nid": 90,
+      "flags": 1048576,
+      "strtype": "OBJECT/Flags",
+      "InheritedType": 1
+    },
+    {
+      "nid": 225,
+      "flags": 1048576,
+      "strtype": "OBJECT/Scrolling",
+      "InheritedType": 1
+    },
+    {
+      "nid": 260,
+      "strtype": "OBJECT/Scroll_on_focus",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": 314,
+      "strtype": "OBJECT/Scroll_snap_x",
+      "strval": "NONE",
+      "InheritedType": 3
+    },
+    {
+      "nid": 315,
+      "strtype": "OBJECT/Scroll_snap_y",
+      "strval": "NONE",
+      "InheritedType": 3
+    },
+    {
+      "nid": 320,
+      "flags": 1048576,
+      "strtype": "OBJECT/States",
+      "InheritedType": 1
+    },
+    {
+      "nid": 1010,
+      "flags": 1048576,
+      "strtype": "CHECKBOX/Checkbox",
+      "InheritedType": 1
+    },
+    {
+      "nid": 1020,
+      "strtype": "CHECKBOX/Title",
+      "strval": "Checkbox",
+      "InheritedType": 10
+    },
+    {
+      "part": "lv.PART.MAIN",
+      "childs": [
+        {
+          "nid": 10000,
+          "strtype": "_style/StyleState",
+          "strval": "DEFAULT",
+          "childs": [
+            {
+              "nid": 10410,
+              "flags": 4096,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 10450,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_14",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        }
+      ],
+      "nid": 1030,
+      "strtype": "CHECKBOX/Style_main",
+      "strval": "lv.PART.MAIN, Text, Transform",
+      "InheritedType": 11
+    },
+    {
+      "part": "lv.PART.INDICATOR",
+      "childs": [
+        {
+          "nid": 10000,
+          "strtype": "_style/StyleState",
+          "strval": "DEFAULT",
+          "childs": [
+            {
+              "nid": 11010,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 11020,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            }
+          ],
+          "InheritedType": 1
+        }
+      ],
+      "nid": 1040,
+      "strtype": "CHECKBOX/Style_bullet",
+      "strval": "lv.PART.INDICATOR, Rectangle, Pad",
+      "InheritedType": 11
+    },
+    {
+      "disabled": false,
+      "nid": 1000210,
+      "strtype": "_event/EventHandler",
+      "strval": "CLICKED",
+      "childs": [
+        {
+          "nid": 1000211,
+          "strtype": "_event/name",
+          "strval": "Event2",
+          "InheritedType": 10
+        },
+        {
+          "nid": 1000212,
+          "strtype": "_event/condition_C",
+          "strval": "",
+          "InheritedType": 10
+        },
+        {
+          "nid": 1000213,
+          "strtype": "_event/condition_P",
+          "strval": "",
+          "InheritedType": 10
+        }
+      ],
+      "InheritedType": 4
+    }
+  ],
+  "saved_objtypeKey": "CHECKBOX"
+}
