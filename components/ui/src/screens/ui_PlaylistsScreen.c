@@ -5,7 +5,7 @@
 
 #include "../ui.h"
 
-lv_obj_t * ui_Screen9 = NULL;
+lv_obj_t * ui_PlaylistsScreen = NULL;
 lv_obj_t * ui_Container4 = NULL;
 lv_obj_t * ui_Container13 = NULL;
 lv_obj_t * ui_Label7 = NULL;
@@ -19,19 +19,19 @@ lv_obj_t * ui_Image9 = NULL;
 
 // build funtions
 
-void ui_Screen9_screen_init(void)
+void ui_PlaylistsScreen_screen_init(void)
 {
-    ui_Screen9 = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_Screen9, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_PlaylistsScreen = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_PlaylistsScreen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Container4 = lv_obj_create(ui_Screen9);
+    ui_Container4 = lv_obj_create(ui_PlaylistsScreen);
     lv_obj_remove_style_all(ui_Container4);
     lv_obj_set_width(ui_Container4, lv_pct(100));
     lv_obj_set_height(ui_Container4, lv_pct(100));
     lv_obj_set_align(ui_Container4, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_Container4, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Container13 = lv_obj_create(ui_Screen9);
+    ui_Container13 = lv_obj_create(ui_PlaylistsScreen);
     lv_obj_remove_style_all(ui_Container13);
     lv_obj_set_width(ui_Container13, 372);
     lv_obj_set_height(ui_Container13, 364);
@@ -41,7 +41,7 @@ void ui_Screen9_screen_init(void)
     lv_obj_clear_flag(ui_Container13, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_img_src(ui_Container13, &ui_img_33876936, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Label7 = lv_label_create(ui_Screen9);
+    ui_Label7 = lv_label_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Label7, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label7, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label7, -7);
@@ -53,7 +53,7 @@ void ui_Screen9_screen_init(void)
     lv_obj_set_style_text_decor(ui_Label7, LV_TEXT_DECOR_NONE, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label7, &lv_font_montserrat_24, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Label10 = lv_label_create(ui_Screen9);
+    ui_Label10 = lv_label_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Label10, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label10, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label10, lv_pct(-2));
@@ -61,7 +61,7 @@ void ui_Screen9_screen_init(void)
     lv_obj_set_align(ui_Label10, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label10, "Playlists");
 
-    ui_Label11 = lv_label_create(ui_Screen9);
+    ui_Label11 = lv_label_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Label11, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label11, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label11, -8);
@@ -72,7 +72,7 @@ void ui_Screen9_screen_init(void)
     lv_label_set_text(ui_Label11, "Lauralin");
     lv_obj_set_style_text_font(ui_Label11, &lv_font_montserrat_24, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Label12 = lv_label_create(ui_Screen9);
+    ui_Label12 = lv_label_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Label12, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label12, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label12, -17);
@@ -81,7 +81,7 @@ void ui_Screen9_screen_init(void)
     lv_label_set_text(ui_Label12, "Happy");
     lv_obj_set_style_text_font(ui_Label12, &lv_font_montserrat_24, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Image7 = lv_img_create(ui_Screen9);
+    ui_Image7 = lv_img_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Image7, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image7, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image7, -91);
@@ -91,7 +91,7 @@ void ui_Screen9_screen_init(void)
     lv_obj_clear_flag(ui_Image7, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image7, 160);
 
-    ui_Image8 = lv_img_create(ui_Screen9);
+    ui_Image8 = lv_img_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Image8, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image8, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image8, -90);
@@ -101,7 +101,7 @@ void ui_Screen9_screen_init(void)
     lv_obj_clear_flag(ui_Image8, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image8, 160);
 
-    ui_Image9 = lv_img_create(ui_Screen9);
+    ui_Image9 = lv_img_create(ui_PlaylistsScreen);
     lv_obj_set_width(ui_Image9, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image9, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image9, -91);
@@ -113,12 +113,12 @@ void ui_Screen9_screen_init(void)
 
 }
 
-void ui_Screen9_screen_destroy(void)
+void ui_PlaylistsScreen_screen_destroy(void)
 {
-    if(ui_Screen9) lv_obj_del(ui_Screen9);
+    if(ui_PlaylistsScreen) lv_obj_del(ui_PlaylistsScreen);
 
     // NULL screen variables
-    ui_Screen9 = NULL;
+    ui_PlaylistsScreen = NULL;
     ui_Container4 = NULL;
     ui_Container13 = NULL;
     ui_Label7 = NULL;

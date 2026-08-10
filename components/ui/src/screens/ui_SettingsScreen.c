@@ -5,7 +5,7 @@
 
 #include "../ui.h"
 
-lv_obj_t * ui_Screen7 = NULL;
+lv_obj_t * ui_SettingsScreen = NULL;
 lv_obj_t * ui_Container9 = NULL;
 lv_obj_t * ui_Bar4 = NULL;
 lv_obj_t * ui_Image10 = NULL;
@@ -23,12 +23,12 @@ lv_obj_t * ui_Label15 = NULL;
 
 // build funtions
 
-void ui_Screen7_screen_init(void)
+void ui_SettingsScreen_screen_init(void)
 {
-    ui_Screen7 = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_Screen7, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_SettingsScreen = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_SettingsScreen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Container9 = lv_obj_create(ui_Screen7);
+    ui_Container9 = lv_obj_create(ui_SettingsScreen);
     lv_obj_remove_style_all(ui_Container9);
     lv_obj_set_width(ui_Container9, 372);
     lv_obj_set_height(ui_Container9, 364);
@@ -38,7 +38,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_clear_flag(ui_Container9, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_img_src(ui_Container9, &ui_img_33876936, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Bar4 = lv_bar_create(ui_Screen7);
+    ui_Bar4 = lv_bar_create(ui_SettingsScreen);
     lv_bar_set_value(ui_Bar4, 25, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_Bar4, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_Bar4, 24);
@@ -47,7 +47,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_set_y(ui_Bar4, -14);
     lv_obj_set_align(ui_Bar4, LV_ALIGN_CENTER);
 
-    ui_Image10 = lv_img_create(ui_Screen7);
+    ui_Image10 = lv_img_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Image10, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image10, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image10, 72);
@@ -57,7 +57,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_clear_flag(ui_Image10, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image10, 90);
 
-    ui_Image3 = lv_img_create(ui_Screen7);
+    ui_Image3 = lv_img_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Image3, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image3, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image3, 69);
@@ -67,7 +67,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_clear_flag(ui_Image3, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image3, 90);
 
-    ui_Bar5 = lv_bar_create(ui_Screen7);
+    ui_Bar5 = lv_bar_create(ui_SettingsScreen);
     lv_bar_set_value(ui_Bar5, 50, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_Bar5, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_Bar5, 59);
@@ -76,7 +76,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_set_y(ui_Bar5, -39);
     lv_obj_set_align(ui_Bar5, LV_ALIGN_CENTER);
 
-    ui_Image12 = lv_img_create(ui_Screen7);
+    ui_Image12 = lv_img_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Image12, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image12, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image12, 5);
@@ -86,7 +86,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_clear_flag(ui_Image12, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image12, 250);
 
-    ui_Label13 = lv_label_create(ui_Screen7);
+    ui_Label13 = lv_label_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Label13, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label13, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label13, -2);
@@ -95,7 +95,7 @@ void ui_Screen7_screen_init(void)
     lv_label_set_text(ui_Label13, "3: 42");
     lv_obj_set_style_text_font(ui_Label13, &lv_font_montserrat_28, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Image13 = lv_img_create(ui_Screen7);
+    ui_Image13 = lv_img_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Image13, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image13, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image13, -106);
@@ -105,7 +105,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_clear_flag(ui_Image13, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image13, 160);
 
-    ui_Image14 = lv_img_create(ui_Screen7);
+    ui_Image14 = lv_img_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Image14, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image14, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image14, -60);
@@ -115,7 +115,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_clear_flag(ui_Image14, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_Image14, 160);
 
-    ui_Label14 = lv_label_create(ui_Screen7);
+    ui_Label14 = lv_label_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Label14, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label14, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label14, -7);
@@ -124,7 +124,7 @@ void ui_Screen7_screen_init(void)
     lv_label_set_text(ui_Label14, "Tue mar 17");
     lv_obj_set_style_text_font(ui_Label14, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Bar6 = lv_bar_create(ui_Screen7);
+    ui_Bar6 = lv_bar_create(ui_SettingsScreen);
     lv_bar_set_value(ui_Bar6, 25, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_Bar6, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_Bar6, 24);
@@ -133,7 +133,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_set_y(ui_Bar6, -17);
     lv_obj_set_align(ui_Bar6, LV_ALIGN_CENTER);
 
-    ui_Image15 = lv_img_create(ui_Screen7);
+    ui_Image15 = lv_img_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Image15, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Image15, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Image15, -103);
@@ -142,7 +142,7 @@ void ui_Screen7_screen_init(void)
     lv_obj_add_flag(ui_Image15, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_Image15, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Label15 = lv_label_create(ui_Screen7);
+    ui_Label15 = lv_label_create(ui_SettingsScreen);
     lv_obj_set_width(ui_Label15, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label15, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_Label15, LV_ALIGN_CENTER);
@@ -150,12 +150,12 @@ void ui_Screen7_screen_init(void)
 
 }
 
-void ui_Screen7_screen_destroy(void)
+void ui_SettingsScreen_screen_destroy(void)
 {
-    if(ui_Screen7) lv_obj_del(ui_Screen7);
+    if(ui_SettingsScreen) lv_obj_del(ui_SettingsScreen);
 
     // NULL screen variables
-    ui_Screen7 = NULL;
+    ui_SettingsScreen = NULL;
     ui_Container9 = NULL;
     ui_Bar4 = NULL;
     ui_Image10 = NULL;

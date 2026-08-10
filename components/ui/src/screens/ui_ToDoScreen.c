@@ -5,7 +5,7 @@
 
 #include "../ui.h"
 
-lv_obj_t * ui_Screen3 = NULL;
+lv_obj_t * ui_ToDoScreen = NULL;
 lv_obj_t * ui_Container10 = NULL;
 lv_obj_t * ui_Container5 = NULL;
 lv_obj_t * ui_Label3 = NULL;
@@ -18,12 +18,12 @@ lv_obj_t * ui_Checkbox5 = NULL;
 
 // build funtions
 
-void ui_Screen3_screen_init(void)
+void ui_ToDoScreen_screen_init(void)
 {
-    ui_Screen3 = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_Screen3, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_ToDoScreen = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_ToDoScreen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Container10 = lv_obj_create(ui_Screen3);
+    ui_Container10 = lv_obj_create(ui_ToDoScreen);
     lv_obj_remove_style_all(ui_Container10);
     lv_obj_set_width(ui_Container10, 372);
     lv_obj_set_height(ui_Container10, 364);
@@ -33,14 +33,14 @@ void ui_Screen3_screen_init(void)
     lv_obj_clear_flag(ui_Container10, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_img_src(ui_Container10, &ui_img_33876936, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Container5 = lv_obj_create(ui_Screen3);
+    ui_Container5 = lv_obj_create(ui_ToDoScreen);
     lv_obj_remove_style_all(ui_Container5);
     lv_obj_set_width(ui_Container5, lv_pct(100));
     lv_obj_set_height(ui_Container5, lv_pct(100));
     lv_obj_set_align(ui_Container5, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_Container5, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Label3 = lv_label_create(ui_Screen3);
+    ui_Label3 = lv_label_create(ui_ToDoScreen);
     lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label3, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_y(ui_Label3, -140);
@@ -49,12 +49,12 @@ void ui_Screen3_screen_init(void)
     lv_label_set_text(ui_Label3, "To Do");
     lv_obj_set_style_text_font(ui_Label3, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_makebed = ui_makebed_create(ui_Screen3);
+    ui_makebed = ui_makebed_create(ui_ToDoScreen);
     lv_checkbox_set_text(ui_makebed, "Make bed");
     lv_obj_set_x(ui_makebed, lv_pct(-16));
     lv_obj_set_y(ui_makebed, lv_pct(-22));
 
-    ui_Checkbox3 = lv_checkbox_create(ui_Screen3);
+    ui_Checkbox3 = lv_checkbox_create(ui_ToDoScreen);
     lv_checkbox_set_text(ui_Checkbox3, "Read 2 chapters");
     lv_obj_set_width(ui_Checkbox3, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Checkbox3, LV_SIZE_CONTENT);    /// 1
@@ -64,7 +64,7 @@ void ui_Screen3_screen_init(void)
     lv_obj_add_flag(ui_Checkbox3, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_set_style_text_font(ui_Checkbox3, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Checkbox4 = lv_checkbox_create(ui_Screen3);
+    ui_Checkbox4 = lv_checkbox_create(ui_ToDoScreen);
     lv_checkbox_set_text(ui_Checkbox4, "Walk Benji");
     lv_obj_set_width(ui_Checkbox4, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Checkbox4, LV_SIZE_CONTENT);    /// 1
@@ -73,7 +73,7 @@ void ui_Screen3_screen_init(void)
     lv_obj_set_align(ui_Checkbox4, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Checkbox4, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
 
-    ui_Checkbox1 = lv_checkbox_create(ui_Screen3);
+    ui_Checkbox1 = lv_checkbox_create(ui_ToDoScreen);
     lv_checkbox_set_text(ui_Checkbox1, "Wright 1 page");
     lv_obj_set_width(ui_Checkbox1, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Checkbox1, LV_SIZE_CONTENT);    /// 1
@@ -82,7 +82,7 @@ void ui_Screen3_screen_init(void)
     lv_obj_set_align(ui_Checkbox1, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Checkbox1, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
 
-    ui_Checkbox5 = lv_checkbox_create(ui_Screen3);
+    ui_Checkbox5 = lv_checkbox_create(ui_ToDoScreen);
     lv_checkbox_set_text(ui_Checkbox5, "Duolingo");
     lv_obj_set_width(ui_Checkbox5, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Checkbox5, LV_SIZE_CONTENT);    /// 1
@@ -93,12 +93,12 @@ void ui_Screen3_screen_init(void)
 
 }
 
-void ui_Screen3_screen_destroy(void)
+void ui_ToDoScreen_screen_destroy(void)
 {
-    if(ui_Screen3) lv_obj_del(ui_Screen3);
+    if(ui_ToDoScreen) lv_obj_del(ui_ToDoScreen);
 
     // NULL screen variables
-    ui_Screen3 = NULL;
+    ui_ToDoScreen = NULL;
     ui_Container10 = NULL;
     ui_Container5 = NULL;
     ui_Label3 = NULL;

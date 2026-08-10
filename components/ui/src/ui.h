@@ -29,13 +29,13 @@ extern "C" {
 
 ///////////////////// SCREENS ////////////////////
 
-#include "screens/ui_Screen3.h"
+#include "screens/ui_ToDoScreen.h"
 #include "screens/ui_Screen5.h"
-#include "screens/ui_Screen6.h"
-#include "screens/ui_Screen7.h"
-#include "screens/ui_Screen8.h"
-#include "screens/ui_Screen9.h"
+#include "screens/ui_SettingsScreen.h"
+#include "screens/ui_ChargingScreen.h"
+#include "screens/ui_PlaylistsScreen.h"
 #include "screens/ui_HomeScreen.h"
+#include "screens/ui_ChangeScreenScreen.h"
 
 ///////////////////// VARIABLES ////////////////////
 
@@ -52,6 +52,7 @@ LV_IMG_DECLARE(ui_img_1779231396);    // assets/Images/icon-pause.png
 LV_IMG_DECLARE(ui_img_1997223691);    // assets/Images/icon-next.png
 LV_IMG_DECLARE(ui_img_1224885811);    // assets/Images/icon-brightness.png
 LV_IMG_DECLARE(ui_img_267335790);    // assets/Images/icon-volume.png
+LV_IMG_DECLARE(ui_img_check_png);    // assets/check.png
 
 // UI INIT
 void ui_init(void);

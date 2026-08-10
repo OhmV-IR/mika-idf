@@ -5,7 +5,7 @@
 
 #include "../ui.h"
 
-lv_obj_t * ui_Screen8 = NULL;
+lv_obj_t * ui_ChargingScreen = NULL;
 lv_obj_t * ui_Container11 = NULL;
 lv_obj_t * ui_Arc3 = NULL;
 lv_obj_t * ui_Label9 = NULL;
@@ -13,12 +13,12 @@ lv_obj_t * ui_Label9 = NULL;
 
 // build funtions
 
-void ui_Screen8_screen_init(void)
+void ui_ChargingScreen_screen_init(void)
 {
-    ui_Screen8 = lv_obj_create(NULL);
-    lv_obj_clear_flag(ui_Screen8, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_ChargingScreen = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_ChargingScreen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Container11 = lv_obj_create(ui_Screen8);
+    ui_Container11 = lv_obj_create(ui_ChargingScreen);
     lv_obj_remove_style_all(ui_Container11);
     lv_obj_set_width(ui_Container11, 372);
     lv_obj_set_height(ui_Container11, 364);
@@ -28,7 +28,7 @@ void ui_Screen8_screen_init(void)
     lv_obj_clear_flag(ui_Container11, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_img_src(ui_Container11, &ui_img_33876936, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Arc3 = lv_arc_create(ui_Screen8);
+    ui_Arc3 = lv_arc_create(ui_ChargingScreen);
     lv_obj_set_width(ui_Arc3, lv_pct(50));
     lv_obj_set_height(ui_Arc3, lv_pct(50));
     lv_obj_set_align(ui_Arc3, LV_ALIGN_CENTER);
@@ -41,7 +41,7 @@ void ui_Screen8_screen_init(void)
 
     lv_obj_set_style_opa(ui_Arc3, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
 
-    ui_Label9 = lv_label_create(ui_Screen8);
+    ui_Label9 = lv_label_create(ui_ChargingScreen);
     lv_obj_set_width(ui_Label9, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label9, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label9, 25);
@@ -52,12 +52,12 @@ void ui_Screen8_screen_init(void)
 
 }
 
-void ui_Screen8_screen_destroy(void)
+void ui_ChargingScreen_screen_destroy(void)
 {
-    if(ui_Screen8) lv_obj_del(ui_Screen8);
+    if(ui_ChargingScreen) lv_obj_del(ui_ChargingScreen);
 
     // NULL screen variables
-    ui_Screen8 = NULL;
+    ui_ChargingScreen = NULL;
     ui_Container11 = NULL;
     ui_Arc3 = NULL;
     ui_Label9 = NULL;

@@ -1,17 +1,4 @@
-# WaveShare ESP32-S3-Touch-1.85C
-
-# Instruction
-
-After exporting, rename the folder and files to match the following structure.
-
-
-```
-
-├── Template                              ├── Template
-│   └── SLS-OBP-Your-Project              |   └── SLS-OBP-Your-Project
-│       ├── libraries                 ➔   │       ├── lib
-│       │   └──                           │       │   └── 
-│       ├── platformio.ini                │       ├── platformio.ini
-│       └── ui                        ➔   │       └── src
-│           └── ui.ino                ➔   │           └── main.cpp
-```
+### How to update UI
+1. Go to squareline studio and hit export then export UI files
+2. Run the applytemplate batch script and wait for it to flash
+If you want to run esp-idf commands yourself pass --no-flash to the applytemplate.bat script
